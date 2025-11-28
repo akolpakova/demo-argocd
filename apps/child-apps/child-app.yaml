@@ -1,10 +1,10 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: my-third-application
-  namespace: my-third-application 
+  name: child-app
+  namespace: namespace-b
   annotations:
-    argocd.argoproj.io/managed-by-url: "http://localhost:8081"
+    argocd.argoproj.io/managed-by-url: "http://localhost:8081" # replace with actual secondary ArgoCD URL in real setup
 spec:
   project: default
   source:
@@ -15,10 +15,8 @@ spec:
       releaseName: my-third-application
   destination:
     server: https://kubernetes.default.svc
-    namespace: my-third-application
+    namespace: namespace-b
   syncPolicy:
     automated:
-      prune: true
       selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
+      prune: true
