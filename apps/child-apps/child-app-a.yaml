@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: child-app-a
-  namespace: namespace-a
+  namespace: argocd
   annotations:
     argocd.argoproj.io/managed-by-url: "http://localhost:8080" # replace with actual secondary ArgoCD URL in real setup
 spec:
