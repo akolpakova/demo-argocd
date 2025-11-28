@@ -15,7 +15,7 @@ spec:
       releaseName: my-third-application
   destination:
     server: https://kubernetes.default.svc
-    namespace: my-third-application
+    namespace: namespace-b
   syncPolicy:
     automated:
       selfHeal: true
