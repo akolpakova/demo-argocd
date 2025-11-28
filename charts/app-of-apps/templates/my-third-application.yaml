@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-third-application
+  namespace: my-third-application 
+  annotations:
+    argocd.argoproj.io/managed-by-url: "http://localhost:8081"
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/helm/examples.git
+    targetRevision: main
+    path: charts/hello-world
+    helm:
+      releaseName: my-third-application
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: my-third-application
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
