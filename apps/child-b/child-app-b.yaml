@@ -5,6 +5,8 @@ metadata:
   namespace: namespace-b
   annotations:
     argocd.argoproj.io/managed-by-url: "http://localhost:8081" # replace with actual secondary ArgoCD URL in real setup
+labels:
+    argocd.instance: argocd-b
 spec:
   project: default
   source:

@@ -5,8 +5,8 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "0"
   creationTimestamp: null
-  name: clusters-test-a
-  namespace: argocd
+  name: clusters-test-b
+  namespace: namespace-b # destination argocd namespace
 spec:
   generators:
   - git:
@@ -21,23 +21,20 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/managed-by: argocd-autopilot
-        # app.kubernetes.io/name: '{{ path.basename }}'
-      name: '{{ path.basename }}'
-      namespace: argocd
+      name: '{{ path.basename }}-b'
+      namespace: namespace-b
     spec:
       destination:
-        namespace: argocd
+        namespace: namespace-b
         server: https://kubernetes.default.svc
-      # ignoreDifferences:
-      # - group: argoproj.io
-      #   jsonPointers:
-      #   - /status
-      #   kind: Application
       project: default
       sources:
         - repoURL: https://github.com/helm/examples.git
           targetRevision: main
           path: charts/hello-world
+      resourceLabelSelector: 
+        matchLabels:
+          argocd.instance: argocd-b
       syncPolicy:
         automated:
           prune: false
