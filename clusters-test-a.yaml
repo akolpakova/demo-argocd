@@ -1,0 +1,45 @@
+
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+  creationTimestamp: null
+  name: clusters-test
+  namespace: argocd
+spec:
+  generators:
+  - git:
+      directories:
+      - path: apps/*
+      repoURL: https://github.com/akolpakova/demo-argocd.git
+      requeueAfterSeconds: 20
+      revision: HEAD
+  syncPolicy:
+    preserveResourcesOnDeletion: true
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/managed-by: argocd-autopilot
+        # app.kubernetes.io/name: '{{ path.basename }}'
+      name: '{{ path.basename }}'
+      namespace: argocd
+    spec:
+      destination:
+        namespace: argocd
+        server: https://kubernetes.default.svc
+      ignoreDifferences:
+      - group: argoproj.io
+        jsonPointers:
+        - /status
+        kind: Application
+      project: make
+      # sources:
+      #   - repoURL: https://github.com/akolpakova/demo-argocd.git
+      #     targetRevision: HEAD
+      #     ref: values
+      syncPolicy:
+        automated:
+          prune: false
+          selfHeal: true
+status: {}
