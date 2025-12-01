@@ -1,3 +1,3 @@
-name: child-2
+name: child-2-potato
 argocdNamespace: namespace-b
 argocdInstance: argocd-b
