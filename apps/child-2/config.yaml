@@ -2,3 +2,4 @@ name: child-2-potato
 argocdNamespace: namespace-b
 argocdInstance: argocd-b
 argocdURL: http://localhost:8081
+environment: development

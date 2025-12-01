@@ -2,3 +2,4 @@ name: null
 argocdNamespace: null
 argocdInstance: null
 argocdURL: null
+environment: null
