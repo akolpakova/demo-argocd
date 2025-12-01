@@ -38,9 +38,9 @@ spec:
         - repoURL: https://github.com/akolpakova/demo-argocd.git
           targetRevision: HEAD
           ref: values
-      resourceLabelSelector: 
-        matchLabels:
-          argocd.instance: argocd-a
+      # resourceLabelSelector: 
+      #   matchLabels:
+      #     argocd.instance: argocd-a
       syncPolicy:
         automated:
           prune: false
