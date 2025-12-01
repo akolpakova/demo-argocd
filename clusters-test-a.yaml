@@ -34,10 +34,10 @@ spec:
       #   - /status
       #   kind: Application
       project: default
-      # sources:
-      #   - repoURL: https://github.com/akolpakova/demo-argocd.git
-      #     targetRevision: HEAD
-      #     ref: values
+      sources:
+        - repoURL: https://github.com/helm/examples.git
+          targetRevision: main
+          path: charts/hello-world
       syncPolicy:
         automated:
           prune: false
