@@ -1,3 +1,4 @@
 name: child-1-cucumber
 argocdNamespace: argocd
 argocdInstance: argocd-a
+argocdURL: http://localhost:8080

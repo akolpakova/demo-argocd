@@ -3,8 +3,9 @@ kind: Application
 metadata:
   name: {{ $.Values.name }}
   namespace: {{ $.Values.argocdNamespace }}
-  # annotations:
-  #   argocd.argoproj.io/managed-by-url: "http://localhost:8080" # replace with actual secondary ArgoCD URL in real setup
+  annotations:
+    argocd.argoproj.io/managed-by-url: {{ $.Values.argocdURL }}  
+    # "http://localhost:8080" # replace with actual secondary ArgoCD URL in real setup
 labels:
   argocd.instance: {{ $.Values.argocdInstance }}
 spec:
