@@ -33,7 +33,7 @@ spec:
         jsonPointers:
         - /status
         kind: Application
-      project: make
+      # project: make
       # sources:
       #   - repoURL: https://github.com/akolpakova/demo-argocd.git
       #     targetRevision: HEAD
