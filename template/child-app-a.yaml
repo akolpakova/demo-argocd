@@ -1,12 +1,12 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: child-app-b
-  namespace: namespace-b
+  name: {{ $.Values.name }}
+  namespace: {{ $.Values.argocdNamespace }}
   # annotations:
-  #   argocd.argoproj.io/managed-by-url: "http://localhost:8081" # replace with actual secondary ArgoCD URL in real setup
+  #   argocd.argoproj.io/managed-by-url: "http://localhost:8080" # replace with actual secondary ArgoCD URL in real setup
 labels:
-  argocd.instance: argocd-b
+  argocd.instance: {{ $.Values.argocdInstance }}
 spec:
   project: default
   source:
@@ -14,10 +14,10 @@ spec:
     targetRevision: main
     path: charts/hello-world
     helm:
-      releaseName: child-app-b
+      releaseName: {{ $.Values.name }}
   destination:
     server: https://kubernetes.default.svc
-    namespace: namespace-b
+    namespace: {{ $.Values.argocdNamespace }}
   syncPolicy:
     automated:
       selfHeal: true

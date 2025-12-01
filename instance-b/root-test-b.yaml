@@ -20,7 +20,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/akolpakova/demo-argocd.git
-    path: "."
+    path: "instance-b"
     targetRevision: HEAD
     directory:
       recurse: false

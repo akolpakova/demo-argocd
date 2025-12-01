@@ -1,0 +1,3 @@
+name: child-1
+argocdNamespace: argocd
+argocdInstance: argocd-a

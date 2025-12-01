@@ -29,9 +29,15 @@ spec:
         server: https://kubernetes.default.svc
       project: default
       sources:
-        - repoURL: https://github.com/helm/examples.git
-          targetRevision: main
-          path: charts/hello-world
+        - repoURL: https://github.com/akolpakova/demo-argocd.git
+          path: template
+          targetRevision: HEAD
+          helm:
+            valueFiles:
+            - $values/{{ path }}/config.yaml
+        # - repoURL: https://github.com/helm/examples.git
+        #   targetRevision: main
+        #   path: charts/hello-world
       resourceLabelSelector: 
           matchLabels:
             argocd.instance: argocd-a
