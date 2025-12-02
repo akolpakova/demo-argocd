@@ -1,14 +1,15 @@
 
-{{- range $argoType,$argoInfo := .Values.argocdInstanceType }}
+{{- range $key,$val := .Values.argocdInstanceType }}
+{{- if eq $.Values.clusterEnvironment $key }}
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "0"
-    argocd.argoproj.io/managed-by-url: {{ $argoInfo.argocdURL }}  
+    argocd.argoproj.io/managed-by-url: {{ $val.argocdURL }}  
   creationTimestamp: null
-  name: 'clusters-{{ $argoType }}'
-  namespace: {{ $argoInfo.argocdNamespace }}  
+  name: 'clusters-{{ $key }}'
+  namespace: {{ $val.argocdNamespace }}  
 spec:
   generators:
   {{- range $clusterName,$clusterInfo := $.Values.clusters }}
@@ -28,10 +29,10 @@ spec:
       labels:
         app.kubernetes.io/managed-by: argocd-autopilot
       name: '{{"{{"}} path.basename {{"}}"}}-{{ $key }}'
-      namespace: {{ $argoInfo.argocdNamespace }}  
+      namespace: {{ $val.argocdNamespace }}  
     spec:
       destination:
-        namespace: {{ $argoInfo.argocdNamespace }}  
+        namespace: {{ $val.argocdNamespace }}  
         server: https://kubernetes.default.svc
       project: default
       sources:
@@ -50,4 +51,5 @@ spec:
           selfHeal: true
 status: {}
 ---
+{{- end }}
 {{- end }}
