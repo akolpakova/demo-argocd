@@ -5,12 +5,12 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   labels:
-    app.kubernetes.io/name: root-test-b
-  name: root-test-b
-  namespace: namespace-b
+    app.kubernetes.io/name: root-test-a
+  name: root-test-a
+  namespace: argocd
 spec:
   destination:
-    namespace: namespace-b
+    namespace: argocd
     server: https://kubernetes.default.svc
   ignoreDifferences:
     - group: argoproj.io
@@ -18,13 +18,13 @@ spec:
         - /status
       kind: Application
   project: default
-  source:
-    repoURL: https://github.com/akolpakova/demo-argocd.git
-    path: "instance-b"
+  sources:
+  - repoURL: https://github.com/akolpakova/demo-argocd.git
+    path: template/appset
     targetRevision: HEAD
-    directory:
-      recurse: false
-      exclude: '{test/**,instance-a/**,root-test-b.yaml}'
+    helm:
+      valueFiles:
+      - dev-clusters.yaml
   syncPolicy:
     automated:
       prune: true
