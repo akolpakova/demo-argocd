@@ -3,11 +3,3 @@ argocdInstanceType:
   production:
     argocdNamespace: argocd
     argocdURL: https://argocd-prod.example.com
-
-clusters:
-  child-1-cucumber:
-    environment: production
-  child-2-potato:
-    environment: development
-  child-3-avocado:
-    environment: production

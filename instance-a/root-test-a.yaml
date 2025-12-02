@@ -25,6 +25,7 @@ spec:
     helm:
       valueFiles:
       - $values/instance-a/production-clusters.yaml
+      - $values/clusters/clusters-list.yaml
   - repoURL: https://github.com/akolpakova/demo-argocd.git
     targetRevision: HEAD
     ref: values

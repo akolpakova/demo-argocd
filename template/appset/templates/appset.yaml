@@ -12,7 +12,7 @@ metadata:
 spec:
   generators:
   {{- range $clusterName,$clusterInfo := $.Values.clusters }}
-  {{- if eq $clusterInfo.environment $argoType }}
+  {{- if eq $clusterInfo.argocdInstanceType $argoType }}
   - git:
       directories:
       - path: 'clusters/{{ $clusterName }}'
