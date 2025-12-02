@@ -5,12 +5,12 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   labels:
-    app.kubernetes.io/name: root-test-a
-  name: root-test-a
-  namespace: argocd
+    app.kubernetes.io/name: root-test-b
+  name: root-test-b
+  namespace: namespace-b
 spec:
   destination:
-    namespace: argocd
+    namespace: namespace-b
     server: https://kubernetes.default.svc
   ignoreDifferences:
     - group: argoproj.io

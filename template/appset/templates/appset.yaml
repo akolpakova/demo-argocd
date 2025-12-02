@@ -6,6 +6,7 @@ kind: ApplicationSet
 metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "0"
+    argocd.argoproj.io/managed-by-url: {{ $val.argocdURL }}  
   creationTimestamp: null
   name: 'clusters-{{ $key }}'
   namespace: argocd

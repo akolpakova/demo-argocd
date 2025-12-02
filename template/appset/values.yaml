@@ -8,11 +8,13 @@ argocdInstanceType:
     syncWave: 0
     enableAutoSync: false
     autoSyncPrune: true
+    argocdURL: http://localhost:8080
 
   development:
     syncWave: 0
     enableAutoSync: true
     autoSyncPrune: false
+    argocdURL: http://localhost:8081
 
 clusters:
   child-1-cucumber:
