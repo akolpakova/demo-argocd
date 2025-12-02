@@ -9,12 +9,20 @@ metadata:
   namespace: argocd
 spec:
   generators:
+  - list:
+      elements: "{{#?@.environment!=='production'}}" 
+      elementsTemplate:
+        path: "{{path.path}}"
+        environment: "{{environment}}"
   - git:
       directories:
-      - path: apps/*
+      - path: apps/*/config.yaml
       repoURL: https://github.com/akolpakova/demo-argocd.git
       requeueAfterSeconds: 20
       revision: HEAD
+      template:
+        path: "{{path}}"
+        environment: "{{ values.environment }}"
   syncPolicy:
     preserveResourcesOnDeletion: true
   template:
