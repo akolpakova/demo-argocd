@@ -24,10 +24,10 @@ spec:
     targetRevision: HEAD
     helm:
       valueFiles:
-      - $values/{{ path }}/config.yaml
-  - repoURL: https://github.com/akolpakova/demo-argocd.git
-    targetRevision: HEAD
-    ref: values
+      - production-clusters.yaml
+  # - repoURL: https://github.com/akolpakova/demo-argocd.git
+  #   targetRevision: HEAD
+  #   ref: values
   # source:
   #   repoURL: https://github.com/akolpakova/demo-argocd.git
   #   path: "instance-a"
