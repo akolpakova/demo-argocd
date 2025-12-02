@@ -14,7 +14,7 @@ spec:
   {{- if eq $clusterInfo.environment $key }}
   - git:
       directories:
-      - path: 'apps/{{ $clusterName }}/config.yaml'
+      - path: 'apps/{{ $clusterName }}'
       repoURL: https://github.com/akolpakova/demo-argocd.git
       requeueAfterSeconds: 20
       revision: HEAD
@@ -39,7 +39,7 @@ spec:
           targetRevision: HEAD
           helm:
             valueFiles:
-            - $values/{{ path }}/config.yaml
+            - $values/{{"{{"}} path {{"}}"}}/config.yaml
         - repoURL: https://github.com/akolpakova/demo-argocd.git
           targetRevision: HEAD
           ref: values
