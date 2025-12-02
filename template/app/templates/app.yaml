@@ -13,7 +13,7 @@ spec:
       releaseName: {{ $.Values.name }}
   destination:
     server: https://kubernetes.default.svc
-    namespace: argocd
+    namespace: {{ $.Values.name }}
   syncPolicy:
     automated:
       selfHeal: true
