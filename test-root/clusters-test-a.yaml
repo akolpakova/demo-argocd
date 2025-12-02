@@ -11,13 +11,7 @@ spec:
   generators:
   - git:
       directories:
-      - path: apps/child-1-cucumber/config.yaml
-      repoURL: https://github.com/akolpakova/demo-argocd.git
-      requeueAfterSeconds: 20
-      revision: HEAD
-  - git:
-      directories:
-      - path: apps/child-3-avocado/config.yaml
+      - path: apps/*/config.yaml
       repoURL: https://github.com/akolpakova/demo-argocd.git
       requeueAfterSeconds: 20
       revision: HEAD
