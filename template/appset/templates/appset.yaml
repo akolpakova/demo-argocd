@@ -12,7 +12,7 @@ metadata:
 spec:
   generators:
   {{- range $clusterName,$clusterInfo := $.Values.clusters }}
-  {{- if eq $clusterInfo.environment $key }}
+  {{- if eq $clusterInfo.environment $argoType }}
   - git:
       directories:
       - path: 'apps/{{ $clusterName }}'
@@ -27,7 +27,7 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/managed-by: argocd-autopilot
-      name: '{{"{{"}} path.basename {{"}}"}}-{{ $key }}'
+      name: '{{"{{"}} path.basename {{"}}"}}-{{ $argoType }}'
       namespace: {{ $argoInfo.argocdNamespace }}  
     spec:
       destination:
