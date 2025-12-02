@@ -1,12 +1,13 @@
+{{- range $argoType,$argoInfo := .Values.argocdInstanceType }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: {{ $.Values.name }}
-  namespace: {{ $.Values.argocdNamespace }}
+  namespace: {{ $argoInfo.argocdNamespace }}
   annotations:
-    argocd.argoproj.io/managed-by-url: {{ $.Values.argocdURL }}  
+    argocd.argoproj.io/managed-by-url: {{ $argoInfo.argocdURL }}  
 labels:
-  argocd.instance: {{ $.Values.argocdInstance }}
+  argocd.instance: {{ $argoType }}
 spec:
   project: default
   source:
@@ -17,10 +18,12 @@ spec:
       releaseName: {{ $.Values.name }}
   destination:
     server: https://kubernetes.default.svc
-    namespace: {{ $.Values.argocdNamespace }}
+    namespace: {{ $argoInfo.argocdNamespace }}
   syncPolicy:
     automated:
       selfHeal: true
       prune: true
     syncOptions:
       - CreateNamespace=true
+---
+{{- end }}

@@ -40,6 +40,7 @@ spec:
           targetRevision: HEAD
           helm:
             valueFiles:
+            - $values/argocd-{{ $argoType }}/config.yaml
             - $values/{{"{{"}} path {{"}}"}}/config.yaml
         - repoURL: https://github.com/akolpakova/demo-argocd.git
           targetRevision: HEAD
