@@ -5,8 +5,8 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   labels:
-    app.kubernetes.io/name: root
-  name: root
+    app.kubernetes.io/name: root-development
+  name: root-development
   namespace: namespace-b
 spec:
   destination:
@@ -24,7 +24,7 @@ spec:
     targetRevision: HEAD
     helm:
       valueFiles:
-      - $values/argocd-dev/config.yaml
+      - $values/argocd-development/config.yaml
       - $values/clusters/clusters-list.yaml
   - repoURL: https://github.com/akolpakova/demo-argocd.git
     targetRevision: HEAD
