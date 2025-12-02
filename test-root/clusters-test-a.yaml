@@ -21,7 +21,7 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/managed-by: argocd-autopilot
-      name: 'clusters-test-a'
+      name: '{{ path.basename }}-a'
       namespace: argocd
     spec:
       destination:
