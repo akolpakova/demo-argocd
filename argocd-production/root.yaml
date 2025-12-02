@@ -5,8 +5,8 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   labels:
-    app.kubernetes.io/name: root-test-a
-  name: root-test-a
+    app.kubernetes.io/name: root
+  name: root
   namespace: argocd
 spec:
   destination:
