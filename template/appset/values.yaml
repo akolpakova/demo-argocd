@@ -1,0 +1,19 @@
+environment: null
+name: null
+
+argocdInstanceType:
+  production:
+    syncWave: 0
+    enableAutoSync: false
+    autoSyncPrune: true
+
+  development:
+    syncWave: 0
+    enableAutoSync: true
+    autoSyncPrune: false
+
+clusters:
+  child-1-cucumber:
+    environment: production
+  child-2-potato:
+    environment: development

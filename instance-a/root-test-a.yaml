@@ -18,13 +18,23 @@ spec:
         - /status
       kind: Application
   project: default
-  source:
-    repoURL: https://github.com/akolpakova/demo-argocd.git
-    path: "instance-a"
+  sources:
+  - repoURL: https://github.com/akolpakova/demo-argocd.git
+    path: template/appset
     targetRevision: HEAD
-    directory:
-      recurse: false
-      exclude: '{root-test-a.yaml}'
+    helm:
+      valueFiles:
+      - $values/{{ path }}/config.yaml
+  - repoURL: https://github.com/akolpakova/demo-argocd.git
+    targetRevision: HEAD
+    ref: values
+  # source:
+  #   repoURL: https://github.com/akolpakova/demo-argocd.git
+  #   path: "instance-a"
+  #   targetRevision: HEAD
+  #   directory:
+  #     recurse: false
+  #     exclude: '{root-test-a.yaml}'
   syncPolicy:
     automated:
       prune: true

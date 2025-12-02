@@ -1,0 +1,52 @@
+
+{{- range $key,$val := .Values.argocdInstanceType }}
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+  creationTimestamp: null
+  name: 'clusters-{{ $key }}'
+  namespace: argocd
+spec:
+  generators:
+  {{- range $clusterName,$clusterInfo := $.Values.clusters }}
+  {{- if eq $clusterInfo.environment $key }}
+  - git:
+      directories:
+      - path: 'apps/{{ $clusterName }}/config.yaml'
+      repoURL: https://github.com/akolpakova/demo-argocd.git
+      requeueAfterSeconds: 20
+      revision: HEAD
+  {{- end }}
+  {{- end }}
+  syncPolicy:
+    preserveResourcesOnDeletion: true
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/managed-by: argocd-autopilot
+      name: 'clusters-{{ $key }}'
+      namespace: argocd
+    spec:
+      destination:
+        namespace: argocd
+        server: https://kubernetes.default.svc
+      project: default
+      sources:
+        - repoURL: https://github.com/akolpakova/demo-argocd.git
+          path: template/test
+          targetRevision: HEAD
+          helm:
+            valueFiles:
+            - $values/{{"{{"}} path {{"}}"}}/config.yaml
+        - repoURL: https://github.com/akolpakova/demo-argocd.git
+          targetRevision: HEAD
+          ref: values
+      syncPolicy:
+        automated:
+          prune: false
+          selfHeal: true
+status: {}
+---
+{{- end }}
