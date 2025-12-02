@@ -11,7 +11,13 @@ spec:
   generators:
   - git:
       directories:
-      - path: apps/*
+      - path: apps/child-3-avocado
+      repoURL: https://github.com/akolpakova/demo-argocd.git
+      requeueAfterSeconds: 20
+      revision: HEAD
+  - git:
+      directories:
+      - path: apps/child-1-cucumber
       repoURL: https://github.com/akolpakova/demo-argocd.git
       requeueAfterSeconds: 20
       revision: HEAD
