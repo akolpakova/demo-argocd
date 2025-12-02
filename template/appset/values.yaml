@@ -9,12 +9,14 @@ argocdInstanceType:
     enableAutoSync: false
     autoSyncPrune: true
     argocdURL: http://localhost:8080
+    argocdNamespace: argocd
 
   development:
     syncWave: 0
     enableAutoSync: true
     autoSyncPrune: false
     argocdURL: http://localhost:8081
+    argocdNamespace: namespace-b
 
 clusters:
   child-1-cucumber:

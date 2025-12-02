@@ -9,7 +9,7 @@ metadata:
     argocd.argoproj.io/managed-by-url: {{ $val.argocdURL }}  
   creationTimestamp: null
   name: 'clusters-{{ $key }}'
-  namespace: argocd
+  namespace: {{ $val.argocdNamespace }}  
 spec:
   generators:
   {{- range $clusterName,$clusterInfo := $.Values.clusters }}
@@ -29,10 +29,10 @@ spec:
       labels:
         app.kubernetes.io/managed-by: argocd-autopilot
       name: 'clusters-{{ $key }}'
-      namespace: argocd
+      namespace: {{ $val.argocdNamespace }}  
     spec:
       destination:
-        namespace: argocd
+        namespace: {{ $val.argocdNamespace }}  
         server: https://kubernetes.default.svc
       project: default
       sources:
