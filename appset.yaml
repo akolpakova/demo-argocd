@@ -14,7 +14,7 @@ spec:
       - path: 'clusters/*'
       repoURL: https://github.com/akolpakova/demo-argocd.git
       requeueAfterSeconds: 20
-      revision: HEAD
+      revision: initial-state
   syncPolicy:
     preserveResourcesOnDeletion: true
   template:
@@ -31,12 +31,12 @@ spec:
       sources:
         - repoURL: https://github.com/akolpakova/demo-argocd.git
           path: template/app
-          targetRevision: HEAD
+          targetRevision: initial-state
           helm:
             valueFiles:
             - $values/{{"{{"}} path {{"}}"}}/config.yaml
         - repoURL: https://github.com/akolpakova/demo-argocd.git
-          targetRevision: HEAD
+          targetRevision: initial-state
           ref: values
       syncPolicy:
         automated:

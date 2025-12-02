@@ -21,7 +21,7 @@ spec:
   sources:
   - repoURL: https://github.com/akolpakova/demo-argocd.git
     path: appset.yaml
-    targetRevision: HEAD
+    targetRevision: initial-state
   syncPolicy:
     automated:
       prune: true
