@@ -20,8 +20,11 @@ spec:
   project: default
   sources:
   - repoURL: https://github.com/akolpakova/demo-argocd.git
-    path: appset.yaml
+    path: '.'
     targetRevision: initial-state
+    directory:
+      recurse: false
+      exclude: '{root.yaml}'
   syncPolicy:
     automated:
       prune: true
