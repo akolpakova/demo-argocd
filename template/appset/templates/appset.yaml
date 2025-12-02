@@ -1,5 +1,6 @@
 
 {{- range $key,$val := .Values.argocdInstanceType }}
+{{- if eq .Values.clusterEnvironment $key }}
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
@@ -49,4 +50,5 @@ spec:
           selfHeal: true
 status: {}
 ---
+{{- end }}
 {{- end }}
