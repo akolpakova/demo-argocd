@@ -23,3 +23,5 @@ clusters:
     environment: production
   child-2-potato:
     environment: development
+  child-3-avocado:
+    environment: production
