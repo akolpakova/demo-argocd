@@ -15,7 +15,7 @@ spec:
   {{- if eq $clusterInfo.environment $argoType }}
   - git:
       directories:
-      - path: 'apps/{{ $clusterName }}'
+      - path: 'clusters/{{ $clusterName }}'
       repoURL: https://github.com/akolpakova/demo-argocd.git
       requeueAfterSeconds: 20
       revision: HEAD
