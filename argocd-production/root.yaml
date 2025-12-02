@@ -5,12 +5,12 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   labels:
-    app.kubernetes.io/name: root-test-b
-  name: root-test-b
-  namespace: namespace-b
+    app.kubernetes.io/name: root-test-a
+  name: root-test-a
+  namespace: argocd
 spec:
   destination:
-    namespace: namespace-b
+    namespace: argocd
     server: https://kubernetes.default.svc
   ignoreDifferences:
     - group: argoproj.io
@@ -24,7 +24,7 @@ spec:
     targetRevision: HEAD
     helm:
       valueFiles:
-      - $values/instance-b/dev-clusters.yaml
+      - $values/argocd-production/config.yaml
       - $values/clusters/clusters-list.yaml
   - repoURL: https://github.com/akolpakova/demo-argocd.git
     targetRevision: HEAD
