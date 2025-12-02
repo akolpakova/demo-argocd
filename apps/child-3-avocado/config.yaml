@@ -1,0 +1,5 @@
+name: child-3-avocado
+argocdNamespace: argocd
+argocdInstance: argocd-a
+argocdURL: http://localhost:8080
+environment: production
