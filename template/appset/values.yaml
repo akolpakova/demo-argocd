@@ -1,5 +1,0 @@
-## Default production ArgoCD values
-# argocdInstanceType:
-#   production:
-#     argocdNamespace: argocd
-#     argocdURL: https://argocd-prod.example.com

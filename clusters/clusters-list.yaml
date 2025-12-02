@@ -1,7 +1,0 @@
-clusters:
-  child-1-cucumber:
-    argocdInstanceType: production
-  child-2-potato:
-    argocdInstanceType: development
-  child-3-avocado:
-    argocdInstanceType: production
