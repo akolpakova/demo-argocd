@@ -24,7 +24,7 @@ spec:
     targetRevision: HEAD
     helm:
       valueFiles:
-      - $values/template/appset/dev-clusters.yaml
+      - $values/instance-b/dev-clusters.yaml
   - repoURL: https://github.com/akolpakova/demo-argocd.git
     targetRevision: HEAD
     ref: values
