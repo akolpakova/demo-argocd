@@ -11,7 +11,7 @@ spec:
   generators:
   - git:
       directories:
-      - path: apps/*/config.yaml
+      - path: apps/*
       repoURL: https://github.com/akolpakova/demo-argocd.git
       requeueAfterSeconds: 20
       revision: HEAD
