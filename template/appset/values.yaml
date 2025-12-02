@@ -1,6 +1,8 @@
 environment: null
 name: null
 
+clusterEnvironment: production
+
 argocdInstanceType:
   production:
     syncWave: 0
