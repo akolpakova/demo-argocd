@@ -35,11 +35,11 @@ spec:
       project: default
       sources:
         - repoURL: https://github.com/akolpakova/demo-argocd.git
-          path: template/test
+          path: template/app
           targetRevision: HEAD
           helm:
             valueFiles:
-            - $values/{{"{{"}} path {{"}}"}}/config.yaml
+            - $values/{{ path }}/config.yaml
         - repoURL: https://github.com/akolpakova/demo-argocd.git
           targetRevision: HEAD
           ref: values
