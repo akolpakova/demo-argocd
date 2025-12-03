@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  creationTimestamp: null
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  labels:
+    app.kubernetes.io/name: root-development
+  name: root-development
+  namespace: argocd
+spec:
+  destination:
+    namespace: argocd
+    server: https://kubernetes.default.svc
+  ignoreDifferences:
+    - group: argoproj.io
+      jsonPointers:
+        - /status
+      kind: Application
+  project: default
+  sources:
+  - repoURL: https://github.com/akolpakova/demo-argocd.git
+    path: renderers/clusters
+    targetRevision: big-bang-test-1
+    helm:
+      valueFiles:
+      - $values/argocd-development/config.yaml
+      - $values/clusters/clusters-list.yaml
+  - repoURL: https://github.com/akolpakova/demo-argocd.git
+    targetRevision: big-bang-test-1
+    ref: values
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      enabled: true
+    syncOptions:
+      - CreateNamespace=true
+
