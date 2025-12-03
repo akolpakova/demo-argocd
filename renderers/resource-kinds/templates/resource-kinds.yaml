@@ -19,8 +19,8 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/managed-by: argocd-autopilot
-        app.kubernetes.io/name: '{{"{{"}} path[1] {{"}}"}}-{{"{{"}} path.basename{{"}}"}}-{{ $key }}'
-      name: '{{"{{"}} path[1] }}-{{"{{"}} path.basename {{"}}"}}-{{ $key }}'
+        app.kubernetes.io/name: '{{"{{"}} path.basename{{"}}"}}-{{ $key }}'
+      name: '{{"{{"}} path.basename {{"}}"}}-{{ $key }}'
       namespace: {{ $.Values.namespace }}
     spec:
       destination:
