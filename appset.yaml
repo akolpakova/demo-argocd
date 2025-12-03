@@ -34,7 +34,7 @@ spec:
           targetRevision: initial-state
           helm:
             valueFiles:
-            - $values/{{"{{"}} path {{"}}"}}/config.yaml
+            - $values/{{ path }}/config.yaml
         - repoURL: https://github.com/akolpakova/demo-argocd.git
           targetRevision: initial-state
           ref: values
