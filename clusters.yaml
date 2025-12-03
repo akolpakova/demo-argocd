@@ -21,8 +21,8 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/managed-by: argocd-autopilot
-        app.kubernetes.io/name: '{{ path.basename }}'
-      name: '{{ path.basename }}'
+        app.kubernetes.io/name: '{{ path.basename }}-cluster'
+      name: '{{ path.basename }}-cluster'
       namespace: argocd
     spec:
       destination:
