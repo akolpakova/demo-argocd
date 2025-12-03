@@ -14,7 +14,7 @@ spec:
       - path: clusters/*
       repoURL: https://github.com/akolpakova/demo-argocd.git
       requeueAfterSeconds: 20
-      revision: HEAD
+      revision: initial-state
   syncPolicy:
     preserveResourcesOnDeletion: true
   template:
