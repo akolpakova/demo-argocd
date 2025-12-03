@@ -11,7 +11,7 @@ spec:
   generators:
   - git:
       directories:
-      - path: clusters/*
+      - path: clusters/*/config.yaml
       repoURL: https://github.com/akolpakova/demo-argocd.git
       requeueAfterSeconds: 20
       revision: initial-state
