@@ -13,7 +13,7 @@ spec:
       releaseName: {{ $.Values.name }}
   destination:
     server: https://kubernetes.default.svc
-    namespace: {{ $.Values.name }}
+    namespace: default
   syncPolicy:
     automated:
       selfHeal: true
