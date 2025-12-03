@@ -21,7 +21,7 @@ spec:
         app.kubernetes.io/managed-by: argocd-autopilot
         app.kubernetes.io/name: '{{"{{"}} path.basename{{"}}"}}-{{ $key }}'
       name: '{{"{{"}} path.basename {{"}}"}}-{{ $key }}'
-      namespace: {{ $.Values.clusterName }}
+      namespace: {{ $.Values.namespace }}
     spec:
       destination:
         namespace: {{ $.Values.clusterName }}
@@ -51,6 +51,7 @@ spec:
           prune: {{ $val.autoSyncPrune  | default true }}
         syncOptions:
           - PruneLast={{ $val.pruneLast | default false }}
+          - CreateNamespace=true
       {{- end }}
 
 ---
