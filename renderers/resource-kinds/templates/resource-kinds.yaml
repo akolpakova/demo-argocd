@@ -41,7 +41,6 @@ spec:
           - name: "groupName"
             value: '{{"{{"}} path.basename {{"}}"}}'
           valueFiles:
-          - $values/renderers/groups/values.yaml
           - $values/clusters/{{ $.Values.clusterName }}/config.yaml
       - repoURL: {{ $.Values.repoUrl}}
         targetRevision: {{ $.Values.targetRevision}}
