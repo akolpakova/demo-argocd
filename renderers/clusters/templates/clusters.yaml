@@ -6,7 +6,8 @@ metadata:
     argocd.argoproj.io/sync-wave: "0"
     argocd.argoproj.io/managed-by-url: {{ $argoInfo.argocdURL }}  
   creationTimestamp: null
-  name: 'clusters-{{ $argoType }}'
+  ## DO NOT CHANGE THE NAME
+  name: clusters
   namespace: {{ $argoInfo.argocdNamespace }}  
 spec:
   generators:
@@ -26,7 +27,8 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/managed-by: argocd-autopilot
-      name: '{{"{{"}} path.basename {{"}}"}}-{{ $argoType }}'
+      ## DO NOT CHANGE THE NAME
+      name: '{{ path.basename }}-cluster'
       namespace: {{ $argoInfo.argocdNamespace }}  
     spec:
       destination:
