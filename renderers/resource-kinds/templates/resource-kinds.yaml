@@ -42,7 +42,7 @@ spec:
           - name: "groupName"
             value: '{{"{{"}} path.basename {{"}}"}}'
           valueFiles:
-          - $values/argocd-{{ $key }}/config.yaml
+          - $values/argocd-{{ $argoType }}/config.yaml
           - $values/clusters/{{ $.Values.clusterName }}/config.yaml
       - repoURL: {{ $.Values.repoUrl}}
         targetRevision: {{ $.Values.targetRevision}}
