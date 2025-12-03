@@ -28,7 +28,7 @@ spec:
       labels:
         app.kubernetes.io/managed-by: argocd-autopilot
       ## DO NOT CHANGE THE NAME
-      name: '{{ path.basename }}-cluster'
+      name: '{{"{{"}} path.basename {{"}}"}}-cluster'
       namespace: {{ $argoInfo.argocdNamespace }}  
     spec:
       destination:
