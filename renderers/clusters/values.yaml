@@ -1,0 +1,9 @@
+repoUrl: https://github.com/akolpakova/demo-argocd.git
+targetRevision: big-bang-test-1
+## should I put defaults here as null ? like namespace ?
+
+resourceKinds:
+  apps:
+    syncWave: 0
+    enableAutoSync: true
+    autoSyncPrune: false
