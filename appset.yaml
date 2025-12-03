@@ -5,16 +5,16 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "0"
   creationTimestamp: null
-  name: clusters
+  name: 'clusters'
   namespace: argocd
 spec:
   generators:
   - git:
       directories:
-      - path: clusters/*
+      - path: 'clusters/*'
       repoURL: https://github.com/akolpakova/demo-argocd.git
       requeueAfterSeconds: 20
-      revision: initial-state
+      revision: HEAD
   syncPolicy:
     preserveResourcesOnDeletion: true
   template:
@@ -34,7 +34,7 @@ spec:
           targetRevision: initial-state
           helm:
             valueFiles:
-            - $values/{{ path }}/config.yaml
+            - $values/{{"{{"}} path {{"}}"}}/config.yaml
         - repoURL: https://github.com/akolpakova/demo-argocd.git
           targetRevision: initial-state
           ref: values
