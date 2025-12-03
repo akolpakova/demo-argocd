@@ -31,7 +31,7 @@ spec:
         jsonPointers:
         - /status
         kind: Application
-      project: make
+      project: default
       sources:
       - repoURL: {{ $.Values.repoUrl}}
         path: renderers/groups
