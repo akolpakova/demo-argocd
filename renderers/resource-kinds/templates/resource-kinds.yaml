@@ -21,7 +21,7 @@ spec:
         app.kubernetes.io/managed-by: argocd-autopilot
         app.kubernetes.io/name: '{{"{{"}} path.basename{{"}}"}}-{{ $key }}'
       name: '{{"{{"}} path.basename {{"}}"}}-{{ $key }}'
-      namespace: {{ $.Values.namespace }}
+      namespace: {{ $.Values.clusterName }}
     spec:
       destination:
         namespace: {{ $.Values.clusterName }}
