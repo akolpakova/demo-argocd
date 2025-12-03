@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: {{ $.Values.clusterName }}
-  namespace: {{ $.Values.namespace }}
+  namespace: {{ $.Values.clusterName }}
 spec:
   project: default
   source:
