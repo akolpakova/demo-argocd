@@ -7,10 +7,10 @@ metadata:
   labels:
     app.kubernetes.io/name: root-development
   name: root-development
-  namespace: argocd
+  namespace: namespace-b
 spec:
   destination:
-    namespace: argocd
+    namespace: namespace-b
     server: https://kubernetes.default.svc
   ignoreDifferences:
     - group: argoproj.io
