@@ -5,13 +5,13 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "0"
   creationTimestamp: null
-  name: 'clusters'
+  name: clusters
   namespace: argocd
 spec:
   generators:
   - git:
       directories:
-      - path: 'clusters/*'
+      - path: clusters/*
       repoURL: https://github.com/akolpakova/demo-argocd.git
       requeueAfterSeconds: 20
       revision: HEAD
@@ -21,6 +21,7 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/managed-by: argocd-autopilot
+        app.kubernetes.io/name: '{{ path.basename }}'
       name: '{{ path.basename }}'
       namespace: argocd
     spec:
