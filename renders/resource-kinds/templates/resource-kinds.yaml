@@ -1,0 +1,58 @@
+{{- range $key,$val := .Values.resourceKinds }}
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: {{ $val.syncWave | quote}}
+  name: {{ $.Values.clusterName }}-{{ $key }}
+  namespace: {{ $.Values.namespace }}
+spec:
+  syncPolicy:
+    preserveResourcesOnDeletion: true
+  generators:
+    - git:
+        repoURL: {{ $.Values.repoUrl}}
+        revision: {{ $.Values.targetRevision}}
+        directories:
+        - path: clusters/{{ $.Values.clusterName }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/managed-by: argocd-autopilot
+        app.kubernetes.io/name: '{{"{{"}} path[1] {{"}}"}}-{{"{{"}} path.basename{{"}}"}}-{{ $key }}'
+      name: '{{"{{"}} path[1] }}-{{"{{"}} path.basename {{"}}"}}-{{ $key }}'
+      namespace: {{ $.Values.namespace }}
+    spec:
+      destination:
+        namespace: {{ $.Values.namespace }}
+        server: https://kubernetes.default.svc
+      ignoreDifferences:
+      - group: argoproj.io
+        jsonPointers:
+        - /status
+        kind: Application
+      project: make
+      sources:
+      - repoURL: {{ $.Values.repoUrl}}
+        path: renderers/groups
+        targetRevision: {{ $.Values.targetRevision}}
+        helm:
+          parameters:
+          - name: "groupName"
+            value: '{{"{{"}} path.basename {{"}}"}}'
+          valueFiles:
+          - $values/renderers/groups/values.yaml
+          - $values/clusters/{{ $.Values.clusterName }}/config.yaml
+      - repoURL: {{ $.Values.repoUrl}}
+        targetRevision: {{ $.Values.targetRevision}}
+        ref: values
+      syncPolicy:
+      {{- if $val.enableAutoSync | default false }}
+        automated:
+          prune: {{ $val.autoSyncPrune  | default true }}
+        syncOptions:
+          - PruneLast={{ $val.pruneLast | default false }}
+      {{- end }}
+
+---
+{{- end }}

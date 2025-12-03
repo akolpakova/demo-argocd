@@ -28,10 +28,15 @@ spec:
       destination:
         namespace: argocd
         server: https://kubernetes.default.svc
+      ignoreDifferences:
+      - group: argoproj.io
+        jsonPointers:
+        - /status
+        kind: Application
       project: default
       sources:
         - repoURL: https://github.com/akolpakova/demo-argocd.git
-          path: template/app
+          path: renderers/resource-kinds
           targetRevision: initial-state
           helm:
             valueFiles:
