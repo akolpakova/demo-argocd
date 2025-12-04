@@ -14,7 +14,7 @@ spec:
       - path: clusters/*
       repoURL: https://github.com/akolpakova/demo-argocd.git
       requeueAfterSeconds: 20
-      revision: initial-state
+      revision: big-bang-test
   syncPolicy:
     preserveResourcesOnDeletion: true
   template:
@@ -37,12 +37,12 @@ spec:
       sources:
         - repoURL: https://github.com/akolpakova/demo-argocd.git
           path: renderers/resource-kinds
-          targetRevision: initial-state
+          targetRevision: big-bang-test
           helm:
             valueFiles:
             - $values/{{ path }}/config.yaml
         - repoURL: https://github.com/akolpakova/demo-argocd.git
-          targetRevision: initial-state
+          targetRevision: big-bang-test
           ref: values
       syncPolicy:
         automated:

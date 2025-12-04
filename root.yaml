@@ -21,7 +21,7 @@ spec:
   sources:
   - repoURL: https://github.com/akolpakova/demo-argocd.git
     path: '.'
-    targetRevision: initial-state
+    targetRevision: big-bang-test
     directory:
       recurse: false
       exclude: '{root.yaml}'
@@ -32,4 +32,3 @@ spec:
       enabled: true
     syncOptions:
       - CreateNamespace=true
-
