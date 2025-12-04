@@ -6,8 +6,9 @@ metadata:
   namespace: {{ $argoInfo.argocdNamespace }}
   annotations:
     argocd.argoproj.io/managed-by-url: {{ $argoInfo.argocdURL }}  
-labels:
-  argocd.instance: {{ $argoType }}
+## Will require application replace 
+# labels:
+#   argocd.instance: {{ $argoType }}
 spec:
   project: default
   source:
