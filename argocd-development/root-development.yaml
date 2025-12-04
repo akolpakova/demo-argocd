@@ -21,13 +21,13 @@ spec:
   sources:
   - repoURL: https://github.com/akolpakova/demo-argocd.git
     path: renderers/clusters
-    targetRevision: big-bang-test-2
+    targetRevision: testing-devex
     helm:
       valueFiles:
       - $values/argocd-development/config.yaml
       - $values/clusters/clusters-list.yaml
   - repoURL: https://github.com/akolpakova/demo-argocd.git
-    targetRevision: big-bang-test-2
+    targetRevision: testing-devex
     ref: values
   syncPolicy:
     automated:
