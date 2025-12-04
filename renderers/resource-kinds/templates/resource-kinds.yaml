@@ -1,11 +1,12 @@
 {{- range $key,$val := .Values.resourceKinds }}
+{{ range $argoType,$argoInfo := $.Values.argocdInstanceType }}
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   annotations:
     argocd.argoproj.io/sync-wave: {{ $val.syncWave | quote}}
   name: {{ $.Values.clusterName }}-{{ $key }}
-  namespace: {{ $.Values.namespace }}
+  namespace: {{ $argoInfo.argocdNamespace }}
 spec:
   syncPolicy:
     preserveResourcesOnDeletion: true
@@ -21,7 +22,7 @@ spec:
         app.kubernetes.io/managed-by: argocd-autopilot
         app.kubernetes.io/name: '{{"{{"}} path.basename{{"}}"}}-{{ $key }}'
       name: '{{"{{"}} path.basename {{"}}"}}-{{ $key }}'
-      namespace: {{ $.Values.namespace }}
+      namespace: {{ $argoInfo.argocdNamespace }}
     spec:
       destination:
         namespace: {{ $.Values.clusterName }}
@@ -41,6 +42,7 @@ spec:
           - name: "groupName"
             value: '{{"{{"}} path.basename {{"}}"}}'
           valueFiles:
+          - $values/argocd-{{ $argoType }}/config.yaml
           - $values/clusters/{{ $.Values.clusterName }}/config.yaml
       - repoURL: {{ $.Values.repoUrl}}
         targetRevision: {{ $.Values.targetRevision}}
@@ -55,4 +57,5 @@ spec:
       {{- end }}
 
 ---
+{{ end }}
 {{- end }}

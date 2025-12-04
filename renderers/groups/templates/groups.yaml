@@ -1,8 +1,14 @@
+{{- range $argoType,$argoInfo := .Values.argocdInstanceType }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: {{ $.Values.clusterName }}
-  namespace: {{ $.Values.namespace }}
+  namespace: {{ $argoInfo.argocdNamespace }}
+  annotations:
+    argocd.argoproj.io/managed-by-url: {{ $argoInfo.argocdURL }}  
+## Will require application replace 
+# labels:
+#   argocd.instance: {{ $argoType }}
 spec:
   project: default
   source:
@@ -20,3 +26,5 @@ spec:
       prune: true
     syncOptions:
       - CreateNamespace=true
+---
+{{- end }}
