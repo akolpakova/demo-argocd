@@ -1,6 +1,6 @@
 repoUrl: https://github.com/akolpakova/demo-argocd.git
 targetRevision: testing-devex
-namespace: argocd
+## should I put defaults here as null ? like namespace ?
 
 resourceKinds:
   apps:

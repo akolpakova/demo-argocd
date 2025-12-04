@@ -1,0 +1,68 @@
+{{- range $argoType,$argoInfo := .Values.argocdInstanceType }}
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+    argocd.argoproj.io/managed-by-url: {{ $argoInfo.argocdURL }}  
+  creationTimestamp: null
+  ## DO NOT CHANGE THE NAME
+  name: clusters{{- if eq $argoType "development" -}}-development{{- end }}
+  namespace: {{ $argoInfo.argocdNamespace }}  
+spec:
+  generators:
+  {{- if eq $clusterInfo.argocdInstanceType $argoType }}
+  - git:
+      directories:
+      - path: 'clusters/child-4-devex'
+      repoURL: https://github.com/akolpakova/demo-argocd.git
+      requeueAfterSeconds: 20
+      revision: {{ $.Values.targetRevision}}
+  {{- end }}
+  # {{- range $clusterName,$clusterInfo := $.Values.clusters }}
+  # {{- if eq $clusterInfo.argocdInstanceType $argoType }}
+  # - git:
+  #     directories:
+  #     - path: 'clusters/{{ $clusterName }}'
+  #     repoURL: https://github.com/akolpakova/demo-argocd.git
+  #     requeueAfterSeconds: 20
+  #     revision: {{ $.Values.targetRevision}}
+  # {{- end }}
+  # {{- end }}
+  syncPolicy:
+    preserveResourcesOnDeletion: true
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/managed-by: argocd-autopilot
+      ## DO NOT CHANGE THE NAME
+      name: '{{"{{"}} path.basename {{"}}"}}-cluster'
+      namespace: {{ $argoInfo.argocdNamespace }}  
+    spec:
+      destination:
+        namespace: {{ $argoInfo.argocdNamespace }}  
+        server: https://kubernetes.default.svc
+      ignoreDifferences:
+      - group: argoproj.io
+        jsonPointers:
+        - /status
+        kind: Application
+      project: default
+      sources:
+        - repoURL: https://github.com/akolpakova/demo-argocd.git
+          path: renderers/resource-kinds
+          targetRevision: {{ $.Values.targetRevision}}
+          helm:
+            valueFiles:
+            - $values/argocd-{{ $argoType }}/config.yaml
+            - $values/{{"{{"}} path {{"}}"}}/config.yaml
+        - repoURL: https://github.com/akolpakova/demo-argocd.git
+          targetRevision: {{ $.Values.targetRevision}}
+          ref: values
+      syncPolicy:
+        automated:
+          prune: false
+          selfHeal: true
+status: {}
+---
+{{- end }}
