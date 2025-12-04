@@ -11,7 +11,9 @@ spec:
   generators:
   - git:
       directories:
-      - path: clusters/*
+      - path: clusters/*      
+      - path: clusters/child-4-devex
+        exclude: true
       repoURL: https://github.com/akolpakova/demo-argocd.git
       requeueAfterSeconds: 20
       revision: testing-devex

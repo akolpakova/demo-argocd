@@ -11,6 +11,7 @@ metadata:
   namespace: {{ $argoInfo.argocdNamespace }}  
 spec:
   generators:
+  {{- if eq path.basename "child-4-devex" }}
   {{- range $clusterName,$clusterInfo := $.Values.clusters }}
   {{- if eq $clusterInfo.argocdInstanceType $argoType }}
   - git:
@@ -19,6 +20,7 @@ spec:
       repoURL: https://github.com/akolpakova/demo-argocd.git
       requeueAfterSeconds: 20
       revision: {{ $.Values.targetRevision}}
+  {{- end }}
   {{- end }}
   {{- end }}
   # {{- range $clusterName,$clusterInfo := $.Values.clusters }}
