@@ -6,4 +6,4 @@ clusters:
   child-3-avocado:
     argocdInstanceType: production
   child-4-devex:
-    argocdInstanceType: production
+    argocdInstanceType: development
