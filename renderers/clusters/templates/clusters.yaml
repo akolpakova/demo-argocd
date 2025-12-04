@@ -11,8 +11,8 @@ metadata:
   namespace: {{ $argoInfo.argocdNamespace }}  
 spec:
   generators:
-  {{- if eq path.basename "child-4-devex" }}
   {{- range $clusterName,$clusterInfo := $.Values.clusters }}
+  {{- if eq $clusterName "child-4-devex" }}
   {{- if eq $clusterInfo.argocdInstanceType $argoType }}
   - git:
       directories:
