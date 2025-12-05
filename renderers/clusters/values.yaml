@@ -1,0 +1,9 @@
+repoUrl: https://github.com/akolpakova/demo-argocd.git
+targetRevision: walkthrough-main
+namespace: argocd
+
+resourceKinds:
+  apps:
+    syncWave: 0
+    enableAutoSync: true
+    autoSyncPrune: false
