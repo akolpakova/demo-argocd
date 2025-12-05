@@ -11,28 +11,28 @@ metadata:
   namespace: {{ $argoInfo.argocdNamespace }}  
 spec:
   generators:
-  {{- range $clusterName,$clusterInfo := $.Values.clusters }}
-  {{- if eq $clusterName "child-4-devex" }}
-  {{- if eq $clusterInfo.argocdInstanceType $argoType }}
-  - git:
-      directories:
-      - path: 'clusters/child-4-devex'
-      repoURL: https://github.com/akolpakova/demo-argocd.git
-      requeueAfterSeconds: 20
-      revision: {{ $.Values.targetRevision}}
-  {{- end }}
-  {{- end }}
-  {{- end }}
   # {{- range $clusterName,$clusterInfo := $.Values.clusters }}
+  # {{- if eq $clusterName "child-4-devex" }}
   # {{- if eq $clusterInfo.argocdInstanceType $argoType }}
   # - git:
   #     directories:
-  #     - path: 'clusters/{{ $clusterName }}'
+  #     - path: 'clusters/child-4-devex'
   #     repoURL: https://github.com/akolpakova/demo-argocd.git
   #     requeueAfterSeconds: 20
   #     revision: {{ $.Values.targetRevision}}
   # {{- end }}
   # {{- end }}
+  # {{- end }}
+  {{- range $clusterName,$clusterInfo := $.Values.clusters }}
+  {{- if eq $clusterInfo.argocdInstanceType $argoType }}
+  - git:
+      directories:
+      - path: 'clusters/{{ $clusterName }}'
+      repoURL: https://github.com/akolpakova/demo-argocd.git
+      requeueAfterSeconds: 20
+      revision: {{ $.Values.targetRevision}}
+  {{- end }}
+  {{- end }}
   syncPolicy:
     preserveResourcesOnDeletion: true
   template:
