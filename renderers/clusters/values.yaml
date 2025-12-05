@@ -1,5 +1,5 @@
 repoUrl: https://github.com/akolpakova/demo-argocd.git
-targetRevision: walkthrough-main
+targetRevision: critic-changes
 namespace: argocd
 
 resourceKinds:
