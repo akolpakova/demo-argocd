@@ -5,6 +5,7 @@ kind: ApplicationSet
 metadata:
   annotations:
     argocd.argoproj.io/sync-wave: {{ $val.syncWave | quote}}
+    argocd.argoproj.io/managed-by-url: {{ $argoInfo.argocdURL }} 
   name: {{ $.Values.clusterName }}-{{ $key }}
   namespace: {{ $argoInfo.argocdNamespace }}
 spec:
