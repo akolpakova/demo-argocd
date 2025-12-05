@@ -21,7 +21,7 @@ spec:
   sources:
   - repoURL: https://github.com/akolpakova/demo-argocd.git
     path: '.'
-    targetRevision: test-a-1
+    targetRevision: test-a
     directory:
       recurse: false
       exclude: '{root.yaml}'

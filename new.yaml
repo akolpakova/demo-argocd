@@ -1,0 +1,106 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+    argocd.argoproj.io/tracking-id: root:argoproj.io/ApplicationSet:argocd/clusters
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"argoproj.io/v1alpha1","kind":"ApplicationSet","metadata":{"annotations":{"argocd.argoproj.io/sync-wave":"0","argocd.argoproj.io/tracking-id":"root:argoproj.io/ApplicationSet:argocd/clusters"},"creationTimestamp":null,"name":"clusters","namespace":"argocd"},"spec":{"generators":[{"git":{"directories":[{"path":"clusters/*"}],"repoURL":"https://github.com/akolpakova/demo-argocd.git","requeueAfterSeconds":20,"revision":"test-a"}}],"syncPolicy":{"preserveResourcesOnDeletion":true},"template":{"metadata":{"labels":{"app.kubernetes.io/managed-by":"argocd-autopilot","app.kubernetes.io/name":"{{ path.basename }}-cluster"},"name":"{{ path.basename }}-cluster","namespace":"argocd"},"spec":{"destination":{"namespace":"argocd","server":"https://kubernetes.default.svc"},"ignoreDifferences":[{"group":"argoproj.io","jsonPointers":["/status"],"kind":"Application"}],"project":"default","sources":[{"helm":{"valueFiles":["$values/{{ path }}/config.yaml"]},"path":"renderers/resource-kinds","repoURL":"https://github.com/akolpakova/demo-argocd.git","targetRevision":"test-a"},{"ref":"values","repoURL":"https://github.com/akolpakova/demo-argocd.git","targetRevision":"test-a"}],"syncPolicy":{"automated":{"prune":false,"selfHeal":true}}}}},"status":{}}
+  creationTimestamp: "2025-12-05T14:59:56Z"
+  generation: 1
+  name: clusters
+  namespace: argocd
+  resourceVersion: "275664"
+  uid: ee0624b5-c41d-46c7-b217-71d6656f5bcf
+spec:
+  generators:
+  - git:
+      directories:
+      - path: clusters/*
+      repoURL: https://github.com/akolpakova/demo-argocd.git
+      requeueAfterSeconds: 20
+      revision: test-a
+  syncPolicy:
+    preserveResourcesOnDeletion: true
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/managed-by: argocd-autopilot
+        app.kubernetes.io/name: '{{ path.basename }}-cluster'
+      name: '{{ path.basename }}-cluster'
+      namespace: argocd
+    spec:
+      destination:
+        namespace: argocd
+        server: https://kubernetes.default.svc
+      ignoreDifferences:
+      - group: argoproj.io
+        jsonPointers:
+        - /status
+        kind: Application
+      project: default
+      sources:
+      - helm:
+          valueFiles:
+          - $values/{{ path }}/config.yaml
+        path: renderers/resource-kinds
+        repoURL: https://github.com/akolpakova/demo-argocd.git
+        targetRevision: test-a
+      - ref: values
+        repoURL: https://github.com/akolpakova/demo-argocd.git
+        targetRevision: test-a
+      syncPolicy:
+        automated:
+          prune: false
+          selfHeal: true
+status:
+  conditions:
+  - lastTransitionTime: "2025-12-05T14:59:56Z"
+    message: All applications have been generated successfully
+    reason: ApplicationSetUpToDate
+    status: "False"
+    type: ErrorOccurred
+  - lastTransitionTime: "2025-12-05T14:59:56Z"
+    message: Successfully generated parameters for all Applications
+    reason: ParametersGenerated
+    status: "True"
+    type: ParametersGenerated
+  - lastTransitionTime: "2025-12-05T14:59:56Z"
+    message: All applications have been generated successfully
+    reason: ApplicationSetUpToDate
+    status: "True"
+    type: ResourcesUpToDate
+  resources:
+  - group: argoproj.io
+    health:
+      status: Healthy
+    kind: Application
+    name: child-1-cucumber-cluster
+    namespace: argocd
+    status: Synced
+    version: v1alpha1
+  - group: argoproj.io
+    health:
+      status: Healthy
+    kind: Application
+    name: child-2-potato-cluster
+    namespace: argocd
+    status: Synced
+    version: v1alpha1
+  - group: argoproj.io
+    health:
+      status: Healthy
+    kind: Application
+    name: child-3-avocado-cluster
+    namespace: argocd
+    status: Synced
+    version: v1alpha1
+  - group: argoproj.io
+    health:
+      status: Healthy
+    kind: Application
+    name: child-4-devex-cluster
+    namespace: argocd
+    status: Synced
+    version: v1alpha1
+  resourcesCount: 4
