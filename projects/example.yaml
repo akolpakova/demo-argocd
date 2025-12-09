@@ -4,9 +4,24 @@ metadata:
   name: default
   # argocd.argoproj.io/managed-by-url: {{ $.Values.argocdURL }}  
 spec:
-  sourceRepos: []
-  sourceNamespaces: []
-  destinations: []
-  namespaceResourceBlacklist:
-  - group: '*'
-    kind: '*'
+# This permits applications in this project to sync from any repository.
+  sourceRepos:
+  - '*' # ⭐ Allow all repository URLs
+
+  # 2. Destination Clusters and Namespaces (Allow deployment everywhere)
+  # This permits deployment to any cluster and any namespace.
+  destinations:
+  - namespace: '*' # ⭐ Allow all namespaces
+    server: '*'    # ⭐ Allow all registered cluster API servers
+
+  # 3. Cluster Resources (Allow all standard Kubernetes resources)
+  # This permits synchronization of any resource type (Deployments, Services, etc.).
+  clusterResourceWhitelist:
+  - group: '*' # ⭐ Allow all API groups
+    kind: '*'  # ⭐ Allow all kinds (resource types)
+
+  # 4. Namespace Resources (Allow all namespaced resources)
+  # Note: Required to ensure access to resources like ConfigMaps, Secrets, etc.
+  namespaceResourceWhitelist:
+  - group: '*' # ⭐ Allow all API groups
+    kind: '*'  # ⭐ Allow all kinds (resource types)
