@@ -19,12 +19,12 @@ spec:
       kind: Application
   project: default
   sources:
-  # - repoURL: https://github.com/akolpakova/demo-argocd.git
-  #   path: renderers/projects
-  #   targetRevision: test-team
-  #   helm:
-  #     valueFiles:
-  #     - $values/argocd-development/config.yaml
+  - repoURL: https://github.com/akolpakova/demo-argocd.git
+    path: renderers/projects
+    targetRevision: test-team
+    helm:
+      valueFiles:
+      - $values/argocd-development/config.yaml
   - repoURL: https://github.com/akolpakova/demo-argocd.git
     path: renderers/clusters
     targetRevision: test-team

@@ -2,13 +2,36 @@ apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   name: example-project
-  # argocd.argoproj.io/managed-by-url: {{ $.Values.argocdURL }}  
+  namespace: namespace-b 
 spec:
-  roles:
-  # A role which provides read-only access to all applications in the project
-  - name: read-only
-    description: Read-only privileges to my-project
-    policies:
-    - p, proj:my-project:read-only, applications, get, my-project/*, allow
-    groups:
-    - my-oidc-group
+  # 1. Source Repositories (Allow all Git repositories)
+  sourceRepos:
+  - '*' # ⭐ Allow all repository URLs
+
+  # 2. Destination Clusters and Namespaces (Allow deployment everywhere)
+  destinations:
+  - namespace: '*' # ⭐ Allow all namespaces
+    server: '*'    # ⭐ Allow all registered cluster API servers
+
+  # 3. Cluster Resources Whitelist (CRITICAL: Allow ALL Cluster-Scoped Resources)
+  # This includes Namespaces, ClusterRoles, PersistentVolumes, etc.
+  clusterResourceWhitelist:
+  - group: '*' # ⭐ Allow all API groups (e.g., apps, networking.k8s.io, rbac.authorization.k8s.io)
+    kind: '*'  # ⭐ Allow all kinds (resource types)
+
+  # 4. Namespace Resources Whitelist (Allow ALL Namespaced Resources)
+  # This ensures Deployments, Pods, Services, ConfigMaps, Secrets, etc., are allowed.
+  namespaceResourceWhitelist:
+  - group: '*' # ⭐ Allow all API groups
+    kind: '*'  # ⭐ Allow all kinds (resource types)
+    
+  # 5. Synchronization Settings (Standard practice to allow anytime)
+  syncWindows:
+  - kind: allow
+    schedule: '*' 
+    duration: 1h
+    
+  # 6. Roles (Optional - Add a highly permissive role if you need to grant users access)
+  # This section defines the *rules*, but you must define groups/users elsewhere 
+  # to grant them the role's privileges.
+  roles: []
