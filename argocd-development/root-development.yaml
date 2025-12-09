@@ -20,7 +20,7 @@ spec:
   project: default
   sources:
   - repoURL: https://github.com/akolpakova/demo-argocd.git
-    path: projects.yaml
+    path: renderers/projects
     targetRevision: test-team
     helm:
       valueFiles:
