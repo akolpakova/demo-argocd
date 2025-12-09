@@ -25,13 +25,13 @@ spec:
     helm:
       valueFiles:
       - $values/argocd-development/config.yaml
-  # - repoURL: https://github.com/akolpakova/demo-argocd.git
-  #   path: renderers/clusters
-  #   targetRevision: test-team
-  #   helm:
-  #     valueFiles:
-  #     - $values/argocd-development/config.yaml
-  #     - $values/clusters/clusters-list.yaml
+  - repoURL: https://github.com/akolpakova/demo-argocd.git
+    path: renderers/clusters
+    targetRevision: test-team
+    helm:
+      valueFiles:
+      - $values/argocd-development/config.yaml
+      - $values/clusters/clusters-list.yaml
   - repoURL: https://github.com/akolpakova/demo-argocd.git
     targetRevision: test-team
     ref: values

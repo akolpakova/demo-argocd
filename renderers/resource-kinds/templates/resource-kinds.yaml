@@ -4,8 +4,9 @@ kind: ApplicationSet
 metadata:
   annotations:
     argocd.argoproj.io/sync-wave: {{ $val.syncWave | quote}}
+    argocd.argoproj.io/managed-by-url: {{ $.Values.argocdURL }}  
   name: {{ $.Values.clusterName }}-{{ $key }}
-  namespace: {{ $.Values.namespace }}
+  namespace: {{ $.Values.argocdNamespace }}
 spec:
   syncPolicy:
     preserveResourcesOnDeletion: true
@@ -21,7 +22,7 @@ spec:
         app.kubernetes.io/managed-by: argocd-autopilot
         app.kubernetes.io/name: '{{"{{"}} path.basename{{"}}"}}-{{ $key }}'
       name: '{{"{{"}} path.basename {{"}}"}}-{{ $key }}'
-      namespace: {{ $.Values.namespace }}
+      namespace: {{ $.Values.argocdNamespace }} 
     spec:
       destination:
         namespace: {{ $.Values.clusterName }}
@@ -41,6 +42,7 @@ spec:
           - name: "groupName"
             value: '{{"{{"}} path.basename {{"}}"}}'
           valueFiles:
+          - $values/argocd-{{ $.Values.argocdInstanceType }}/config.yaml
           - $values/clusters/{{ $.Values.clusterName }}/config.yaml
       - repoURL: {{ $.Values.repoUrl}}
         targetRevision: {{ $.Values.targetRevision}}

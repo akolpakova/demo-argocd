@@ -4,49 +4,11 @@ metadata:
   name: example-project
   # argocd.argoproj.io/managed-by-url: {{ $.Values.argocdURL }}  
 spec:
-  # 1. Source Repositories (Allow all Git repositories)
-  # This permits applications in this project to sync from any repository.
-  sourceRepos:
-  - '*' # ⭐ Allow all repository URLs
-
-  # 2. Destination Clusters and Namespaces (Allow deployment everywhere)
-  # This permits deployment to any cluster and any namespace.
-  destinations:
-  - namespace: '*' # ⭐ Allow all namespaces
-    server: '*'    # ⭐ Allow all registered cluster API servers
-
-  # 3. Cluster Resources (Allow all standard Kubernetes resources)
-  # This permits synchronization of any resource type (Deployments, Services, etc.).
-  clusterResourceWhitelist:
-  - group: '*' # ⭐ Allow all API groups
-    kind: '*'  # ⭐ Allow all kinds (resource types)
-
-  # 4. Namespace Resources (Allow all namespaced resources)
-  # Note: Required to ensure access to resources like ConfigMaps, Secrets, etc.
-  namespaceResourceWhitelist:
-  - group: '*' # ⭐ Allow all API groups
-    kind: '*'  # ⭐ Allow all kinds (resource types)
-    
-  # 5. Roles (Grant full read/write access to authenticated users/groups)
   roles:
-  - name: super-admin-role
-    description: Full access for all operations
-    # Policy to grant full read/write/management access
+  # A role which provides read-only access to all applications in the project
+  - name: read-only
+    description: Read-only privileges to my-project
     policies:
-    # Grants all rights (get, create, update, delete, sync, action, etc.) 
-    # for all applications managed under this project.
-    - p: 'allow:super-admin-project, *, *, *, allow'
-    
-    # ⭐ User/Group Binding (CRITICAL: Defines who gets this role)
-    # This example binds the 'super-admin-role' to any user belonging 
-    # to the 'admins' group defined in your ArgoCD config (via RBAC/dex/LDAP).
-    # You must adjust this to match your identity provider's groups or usernames.
+    - p, proj:my-project:read-only, applications, get, my-project/*, allow
     groups:
-    - 'admins' 
-    # - 'github-org:team-devops' # Example for GitHub/GitLab groups
-    
-  # 6. Synchronization Settings (Optional, for quick testing)
-  syncWindows:
-  - kind: allow
-    schedule: '*' # Allow syncs anytime
-    duration: 1h
+    - my-oidc-group
