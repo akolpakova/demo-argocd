@@ -6,7 +6,7 @@ metadata:
     argocd.argoproj.io/managed-by-url: {{ $.Values.argocdURL }}  
   creationTimestamp: null
   ## DO NOT CHANGE THE NAME FOR THE PRODUCTION ARGOCD
-  name: clusters{{- if eq $argoType "development" -}}-development{{- end }}
+  name: clusters{{- if eq $.Values.argocdInstanceType "development" -}}-development{{- end }}
   namespace: {{ $.Values.argocdNamespace }} 
 spec:
   generators:
