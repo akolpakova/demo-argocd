@@ -16,16 +16,19 @@ spec:
     - /status
     kind: Application
   project: default
-  sources:
-  - repoURL: https://github.com/akolpakova/demo-argocd.git
+  source:
     path: projects
-    targetRevision: test-team
-    helm:
-      valueFiles:
-      - $values/{{"{{"}} path {{"}}"}}/config.yaml
-  - repoURL: https://github.com/akolpakova/demo-argocd.git
-    targetRevision: test-team
-    ref: values
+    repoURL: https://github.com/akolpakova/demo-argocd.git
+  # sources:
+  # - repoURL: https://github.com/akolpakova/demo-argocd.git
+  #   path: projects
+  #   targetRevision: test-team
+  #   helm:
+  #     valueFiles:
+  #     - $values/{{"{{"}} path {{"}}"}}/config.yaml
+  # - repoURL: https://github.com/akolpakova/demo-argocd.git
+  #   targetRevision: test-team
+  #   ref: values
   syncPolicy:
     automated:
       selfHeal: true
