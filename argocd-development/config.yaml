@@ -1,0 +1,3 @@
+argocdInstanceType: development
+argocdURL: http://localhost:8081
+argocdNamespace: namespace-b
