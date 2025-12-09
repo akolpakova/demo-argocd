@@ -19,6 +19,7 @@ spec:
   source:
     path: projects
     repoURL: https://github.com/akolpakova/demo-argocd.git
+    targetRevision: test-team
   # sources:
   # - repoURL: https://github.com/akolpakova/demo-argocd.git
   #   path: projects
