@@ -25,3 +25,18 @@ spec:
   namespaceResourceWhitelist:
   - group: '*' # ⭐ Allow all API groups
     kind: '*'  # ⭐ Allow all kinds (resource types)
+roles:
+  - name: super-admin-role
+    description: Full access for all operations
+    # Policy to grant full read/write/management access
+    policies:
+    # Grants all rights (get, create, update, delete, sync, action, etc.) 
+    # for all applications managed under this project.
+    - p: 'allow:super-admin-project, *, *, *, allow'
+    
+    # ⭐ User/Group Binding (CRITICAL: Defines who gets this role)
+    # This example binds the 'super-admin-role' to any user belonging 
+    # to the 'admins' group defined in your ArgoCD config (via RBAC/dex/LDAP).
+    # You must adjust this to match your identity provider's groups or usernames.
+    groups:
+    - 'admins'
