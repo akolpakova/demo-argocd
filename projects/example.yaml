@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: default
+  name: example-project
   # argocd.argoproj.io/managed-by-url: {{ $.Values.argocdURL }}  
 spec:
   # 1. Source Repositories (Allow all Git repositories)
