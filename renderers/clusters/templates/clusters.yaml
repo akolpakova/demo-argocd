@@ -20,6 +20,7 @@ spec:
       revision: {{ $.Values.targetRevision}}
   {{- end }}
   {{- end }}
+  
   - git:
     directories:
     - path: 'clusters/{{ $.Values.argocdClustersConfig }}'
