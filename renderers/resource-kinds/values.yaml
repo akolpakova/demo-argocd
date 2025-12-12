@@ -3,14 +3,14 @@ targetRevision: test-team
 namespace: argocd
 
 resourceKinds:
-  apps:
-    syncWave: 0
-    enableAutoSync: true
-    autoSyncPrune: false
-    config: "app-config.yaml"
+  # apps:
+  #   syncWave: 0
+  #   enableAutoSync: true
+  #   autoSyncPrune: false
+  #   config: "app-config.yaml"
 
   resources:
-    syncWave: -2
+    syncWave: 0
     autoSyncPrune: false
     enableAutoSync: true
     config: "resources-config.yaml"
