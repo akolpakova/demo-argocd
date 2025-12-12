@@ -10,6 +10,12 @@ metadata:
   namespace: {{ $.Values.argocdNamespace }} 
 spec:
   generators:
+  - git:
+      directories:
+      - path: 'clusters/{{ $.Values.argocdClustersConfig }}'
+      repoURL: https://github.com/akolpakova/demo-argocd.git
+      requeueAfterSeconds: 20
+      revision: {{ $.Values.targetRevision}}
   {{- range $clusterName,$clusterInfo := $.Values.clusters }}
   {{- if eq $clusterInfo.argocdInstanceType $.Values.argocdInstanceType }}
   - git:
