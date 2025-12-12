@@ -1,3 +1,15 @@
+
+defaults:
+  app:
+    destination:
+      namespace: not-defined
+  resource:
+    destination:
+      namespace: not-defined
+  app-infra:
+    destination:
+      namespace: not-defined
+
 resource-list:
   cluster-secrets:
     type: helm
@@ -7,7 +19,6 @@ resource-list:
       path: renderers/cluster-secrets
     helm:
       valueFiles:
-        - $values/argocd-{{ $.Values.argocdInstanceType }}/config.yaml
         - "$values/clusters/clusters-list.yaml"
     destination:
       namespace: namespace-b
