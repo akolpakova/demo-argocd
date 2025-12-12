@@ -1,4 +1,8 @@
 clusters:
+  test:
+    argocdInstanceType: production
+  test-deploy:
+    argocdInstanceType: development
   child-1-cucumber:
     argocdInstanceType: development
   child-2-potato:
