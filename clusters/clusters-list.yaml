@@ -6,7 +6,7 @@ clusters:
   child-1-cucumber:
     argocdInstanceType: development
   child-2-potato:
-    argocdInstanceType: production
+    argocdInstanceType: development
   child-3-avocado:
     argocdInstanceType: production
   child-4-devex:

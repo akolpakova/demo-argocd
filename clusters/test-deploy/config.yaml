@@ -14,7 +14,7 @@ defaults:
 resource-list:
   cluster-secrets:
     type: helm
-    enabled: false
+    enabled: true
     project: default
     source:
       path: renderers/cluster-secrets
