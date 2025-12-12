@@ -1,3 +1,4 @@
+clusterName: test-deploy
 
 defaults:
   app:
