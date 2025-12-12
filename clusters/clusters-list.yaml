@@ -4,7 +4,7 @@ clusters:
   # test-deploy:
   #   argocdInstanceType: development
   child-1-cucumber:
-    argocdInstanceType: production
+    argocdInstanceType: development
   child-2-potato:
     argocdInstanceType: production
   child-3-avocado:
