@@ -12,6 +12,8 @@ spec:
   - git:
       directories:
       - path: clusters/*
+      - path: clusters/test-deploy
+        exclude: true
       repoURL: https://github.com/akolpakova/demo-argocd.git
       requeueAfterSeconds: 20
       revision: test-team

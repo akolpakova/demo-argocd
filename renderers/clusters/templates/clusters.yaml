@@ -20,6 +20,12 @@ spec:
       revision: {{ $.Values.targetRevision}}
   {{- end }}
   {{- end }}
+  - git:
+    directories:
+    - path: 'clusters/{{ $.Values.argocdClustersConfig }}'
+    repoURL: {{ $.Values.repoUrl }}
+    requeueAfterSeconds: 20
+    revision: {{ $.Values.targetRevision }}
   syncPolicy:
     preserveResourcesOnDeletion: true
   template:
