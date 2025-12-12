@@ -7,3 +7,10 @@ resourceKinds:
     syncWave: 0
     enableAutoSync: true
     autoSyncPrune: false
+    config: "app-config.yaml"
+
+  resources:
+    syncWave: -2
+    autoSyncPrune: false
+    enableAutoSync: true
+    config: "resources-config.yaml"
