@@ -20,6 +20,7 @@ resource-list:
       path: renderers/cluster-secrets
     helm:
       valueFiles:
+        - "$values/argocd-{{ $.Values.argocdInstanceType }}/config.yaml"
         - "$values/clusters/clusters-list.yaml"
     destination:
       namespace: namespace-b
