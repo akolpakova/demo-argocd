@@ -1,0 +1,11 @@
+{{- range $clusterName,$clusterInfo := .Values.clusters }}
+{{- if eq $clusterInfo.argocdInstanceType $.Values.argocdInstanceType }}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secret-test-{{ $key }}
+type: kubernetes.io/basic-auth
+stringData:
+  username: admin 
+  password: t0p-Secret 
+{{- end }}

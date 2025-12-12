@@ -1,0 +1,10 @@
+region: "eu-west-1"
+store_name: aws-secretsmanager
+secret_name: argocd/clusters/devex
+endpoint_key: endpoint
+config_key: config
+secret_user_key_key: secret_user_key
+secret_user_id_key: secret_user_id
+region_key: region
+
+clusters: {}

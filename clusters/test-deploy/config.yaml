@@ -1,22 +1,12 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: test-deploy
-  namespace: namespace-b
-spec:
-  project: default
-  source:
-    repoURL: https://github.com/helm/examples.git
-    targetRevision: main
-    path: charts/hello-world
+resource-list:
+  cluster-secrets:
+    type: helm
+    enabled: false
+    project: default
+    source:
+      path: renderers/cluster-secrets
     helm:
-      releaseName: test-deploy
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: test-deploy
-  syncPolicy:
-    automated:
-      selfHeal: true
-      prune: true
-    syncOptions:
-      - CreateNamespace=true
+      valueFiles:
+        - "$values/clusters/clusters-list.yaml"
+    destination:
+      namespace: namespace-b
