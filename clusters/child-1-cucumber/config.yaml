@@ -1,2 +1,3 @@
 clusterName: child-1-cucumber
 argocdInstanceType: production
+argocdURL: https://localhost:8080

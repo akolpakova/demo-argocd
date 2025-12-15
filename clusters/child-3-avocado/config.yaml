@@ -1,2 +1,3 @@
 clusterName: child-3-avocado
 argocdInstanceType: production
+argocdURL: https://localhost:8080

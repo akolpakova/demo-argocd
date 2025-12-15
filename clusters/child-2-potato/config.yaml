@@ -1,2 +1,3 @@
 clusterName: child-2-potato
 argocdInstanceType: development
+argocdURL: https://localhost:8081
