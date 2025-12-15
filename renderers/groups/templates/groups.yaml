@@ -3,7 +3,7 @@ kind: Application
 metadata:
   name: {{ $.Values.clusterName }}
   namespace: {{ $.Values.argocdNamespace }}
-  # argocd.argoproj.io/managed-by-url: {{ $.Values.argocdURL }}  
+  argocd.argoproj.io/managed-by-url: {{ $.Values.argocdURL }}  
 spec:
   project: default
   source:
