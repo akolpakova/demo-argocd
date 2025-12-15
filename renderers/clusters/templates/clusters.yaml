@@ -17,14 +17,14 @@ spec:
       requeueAfterSeconds: 20
       revision: {{ $.Values.targetRevision}}
   {{- range $clusterName,$clusterInfo := $.Values.clusters }}
-  {{- if eq $clusterInfo.argocdInstanceType $.Values.argocdInstanceType }}
+  # {{- if eq $clusterInfo.argocdInstanceType $.Values.argocdInstanceType }}
   - git:
       directories:
       - path: 'clusters/{{ $clusterName }}'
       repoURL: https://github.com/akolpakova/demo-argocd.git
       requeueAfterSeconds: 20
       revision: {{ $.Values.targetRevision}}
-  {{- end }}
+  # {{- end }}
   {{- end }}
   syncPolicy:
     preserveResourcesOnDeletion: true

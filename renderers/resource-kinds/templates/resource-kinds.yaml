@@ -44,7 +44,7 @@ spec:
           valueFiles:
           - $values/argocd-{{ $.Values.argocdInstanceType }}/config.yaml
           - $values/clusters/{{ $.Values.clusterName }}/config.yaml
-          - $values/{{ $val.config }}
+          # - $values/{{ $val.config }}
       - repoURL: {{ $.Values.repoUrl}}
         targetRevision: {{ $.Values.targetRevision}}
         ref: values
