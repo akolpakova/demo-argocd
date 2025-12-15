@@ -1,10 +1,10 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: {{ $.Values.clusterName }}
-  namespace: {{ $.Values.argocdNamespace }}
   annotations:
     argocd.argoproj.io/managed-by-url: {{ $.Values.argocdURL }}  
+  name: {{ $.Values.clusterName }}
+  namespace: {{ $.Values.argocdNamespace }}
 spec:
   project: default
   source:

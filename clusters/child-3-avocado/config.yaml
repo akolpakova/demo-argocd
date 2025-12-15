@@ -1,1 +1,2 @@
 clusterName: child-3-avocado
+argocdInstanceType: production
