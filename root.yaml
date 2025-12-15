@@ -19,11 +19,12 @@ spec:
       kind: Application
   project: default
   sources:
-  - path: "."
-    repoURL: https://github.com/akolpakova/demo-argocd.git
-    directory:
-      recurse: false
-      exclude: "root.yaml, app-config.yaml, resources-config.yaml"
+  # - path: "."
+  #   repoURL: https://github.com/akolpakova/demo-argocd.git
+  #   targetRevision: test-team
+  #   directory:
+  #     recurse: false
+  #     exclude: "root.yaml, app-config.yaml, resources-config.yaml"
   - repoURL: https://github.com/akolpakova/demo-argocd.git
     path: renderers/projects
     targetRevision: test-team
