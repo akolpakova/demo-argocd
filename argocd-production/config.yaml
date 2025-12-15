@@ -1,0 +1,4 @@
+argocdInstanceType: production
+argocdURL: http://localhost:8080
+argocdNamespace: argocd
+argocdClustersConfig: test-deploy

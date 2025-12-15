@@ -20,11 +20,14 @@ spec:
   project: default
   sources:
   - repoURL: https://github.com/akolpakova/demo-argocd.git
-    path: '.'
+    path: clusters.yaml
     targetRevision: test-team
-    directory:
-      recurse: false
-      exclude: '{root.yaml}'
+  - repoURL: https://github.com/akolpakova/demo-argocd.git
+    path: renderers/projects
+    targetRevision: test-team
+    helm:
+      valueFiles:
+      - $values/argocd-production/config.yaml
   syncPolicy:
     automated:
       prune: true
