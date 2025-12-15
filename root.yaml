@@ -19,15 +19,27 @@ spec:
       kind: Application
   project: default
   sources:
-  - repoURL: https://github.com/akolpakova/demo-argocd.git
-    path: clusters.yaml
-    targetRevision: test-team
+  - path: "."
+    repoURL: https://github.com/akolpakova/demo-argocd.git
+    directory:
+      recurse: false
+      exclude: "root.yaml, app-config.yaml, resources-config.yaml"
   - repoURL: https://github.com/akolpakova/demo-argocd.git
     path: renderers/projects
     targetRevision: test-team
     helm:
       valueFiles:
       - $values/argocd-production/config.yaml
+  - repoURL: https://github.com/akolpakova/demo-argocd.git
+    path: renderers/clusters
+    targetRevision: test-team
+    helm:
+      valueFiles:
+      - $values/argocd-production/config.yaml
+      - $values/clusters/clusters-list.yaml
+  - repoURL: https://github.com/akolpakova/demo-argocd.git
+    targetRevision: test-team
+    ref: values
   syncPolicy:
     automated:
       prune: true
