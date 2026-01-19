@@ -51,7 +51,9 @@ spec:
       syncPolicy:
       {{- if $val.enableAutoSync | default false }}
         automated:
+      {{- if $val.autoSyncPrune }}
           prune: {{ $val.autoSyncPrune }}
+      {{- end }}
         syncOptions:
           - PruneLast={{ $val.pruneLast | default false }}
           - CreateNamespace=true
