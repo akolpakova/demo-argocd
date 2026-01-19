@@ -3,10 +3,10 @@ targetRevision: test-team
 namespace: argocd
 
 resourceKinds:
-  # apps:
-  #   syncWave: 0
-  #   enableAutoSync: true
-  #   autoSyncPrune: false
+  apps:
+    syncWave: 0
+    enableAutoSync: true
+    autoSyncPrune: false
   #   config: "app-config.yaml"
 
   resources:
