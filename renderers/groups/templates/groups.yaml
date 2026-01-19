@@ -12,7 +12,7 @@ spec:
     targetRevision: main
     path: charts/hello-world
     helm:
-      releaseName: {{ $.Values.clusterName }}
+      releaseName: {{ $.Values.clusterName }}-{{ $.Values.groupName }}
   destination:
     server: https://kubernetes.default.svc
     namespace: {{ $.Values.clusterName }}
