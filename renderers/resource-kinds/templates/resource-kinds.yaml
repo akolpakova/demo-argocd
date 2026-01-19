@@ -49,15 +49,12 @@ spec:
         targetRevision: {{ $.Values.targetRevision}}
         ref: values
       syncPolicy:
-      {{- if $val.enableAutoSync | default false }}
         automated:
-      {{- if $val.autoSyncPrune }}
+          enabled: {{ $val.enableAutoSync }}
           prune: {{ $val.autoSyncPrune }}
-      {{- end }}
         syncOptions:
-          - PruneLast={{ $val.pruneLast | default false }}
+          - PruneLast={{ $val.pruneLast | default false }} ## should be removed
           - CreateNamespace=true
-      {{- end }}
 
 ---
 {{- end }}
