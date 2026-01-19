@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: test-project
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-options: Delete=false
+spec:
+  # 1. Source Repositories (Allow all Git repositories)
+  sourceRepos:
+  - '*' # ⭐ Allow all repository URLs
+
+  # 2. Destination Clusters and Namespaces (Allow deployment everywhere)
+  destinations:
+  - namespace: '*' # ⭐ Allow all namespaces
+    server: '*'    # ⭐ Allow all registered cluster API servers
+
+  # 3. Cluster Resources Whitelist (CRITICAL: Allow ALL Cluster-Scoped Resources)
+  # This includes Namespaces, ClusterRoles, PersistentVolumes, etc.
+  clusterResourceWhitelist:
+  - group: '*' # ⭐ Allow all API groups (e.g., apps, networking.k8s.io, rbac.authorization.k8s.io)
+    kind: '*'  # ⭐ Allow all kinds (resource types)
+
+  # 4. Namespace Resources Whitelist (Allow ALL Namespaced Resources)
+  # This ensures Deployments, Pods, Services, ConfigMaps, Secrets, etc., are allowed.
+  namespaceResourceWhitelist:
+  - group: '*' # ⭐ Allow all API groups
+    kind: '*'  # ⭐ Allow all kinds (resource types)
+    
+  # 5. Synchronization Settings (Standard practice to allow anytime)
+  syncWindows:
+  - kind: allow
+    schedule: '*' 
+    duration: 1h
+    
+  # 6. Roles (Optional - Add a highly permissive role if you need to grant users access)
+  # This section defines the *rules*, but you must define groups/users elsewhere 
+  # to grant them the role's privileges.
+  roles: []
