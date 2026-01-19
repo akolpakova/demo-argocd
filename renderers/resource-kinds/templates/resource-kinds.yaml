@@ -40,7 +40,7 @@ spec:
         helm:
           parameters:
           - name: "groupName"
-            value: '{{"{{"}} path.basename {{"}}"}}'
+            value: {{ $key }}
           valueFiles:
           - $values/argocd-{{ $.Values.argocdInstanceType }}/config.yaml
           - $values/clusters/{{ $.Values.clusterName }}/config.yaml
