@@ -2,8 +2,8 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   creationTimestamp: null
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
+  # finalizers:
+  #   - resources-finalizer.argocd.argoproj.io
   labels:
     app.kubernetes.io/name: root
   name: root
@@ -24,7 +24,7 @@ spec:
   #   targetRevision: test-team
   #   directory:
   #     recurse: false
-  #     exclude: "root.yaml, app-config.yaml, resources-config.yaml"
+  #     exclude: "root.yaml"
   - repoURL: https://github.com/akolpakova/demo-argocd.git
     path: renderers/projects
     targetRevision: test-team
@@ -42,9 +42,10 @@ spec:
     targetRevision: test-team
     ref: values
   syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-      enabled: true
+  #   automated:
+  #     prune: true
+  #     selfHeal: true
+  #     enabled: true
     syncOptions:
-      - CreateNamespace=true
+      - PreserveResourcesOnDeletion=true
+  #     - CreateNamespace=true

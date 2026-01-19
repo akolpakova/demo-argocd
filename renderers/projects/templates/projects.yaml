@@ -33,3 +33,5 @@ spec:
   syncPolicy:
     automated:
       selfHeal: true
+    syncOptions:
+      - PreserveResourcesOnDeletion=true
