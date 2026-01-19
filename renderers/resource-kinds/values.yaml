@@ -11,6 +11,6 @@ resourceKinds:
 
   resources:
     syncWave: 0
-    autoSyncPrune: false
     enableAutoSync: true
+    autoSyncPrune: false
     # config: "resources-config.yaml"
