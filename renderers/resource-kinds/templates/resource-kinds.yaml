@@ -53,7 +53,7 @@ spec:
           enabled: {{ $val.enableAutoSync }}
           prune: {{ $val.autoSyncPrune }}
         syncOptions:
-          - PruneLast={{ $val.pruneLast | default false }} ## should be removed
+          - PruneLast={{ $val.pruneLast | default false }} ## should be removed ? 
           - CreateNamespace=true
 
 ---
