@@ -19,7 +19,7 @@ spec:
   syncPolicy:
     automated:
       selfHeal: true
-      enabled: {{ $val.enableAutoSync }}
-      prune: {{ $val.autoSyncPrune }}
+      enabled: {{ $.Values.enableAutoSync }}
+      prune: {{ $.Values.autoSyncPrune }}
     syncOptions:
       - CreateNamespace=true
