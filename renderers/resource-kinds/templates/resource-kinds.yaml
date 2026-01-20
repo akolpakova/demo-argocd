@@ -41,6 +41,10 @@ spec:
           parameters:
           - name: "groupName"
             value: {{ $key }}
+          - name: "enableAutoSync"
+            value: {{ $val.enableAutoSync }}
+          - name: "autoSyncPrune"
+            value: {{ $val.autoSyncPrune }}
           valueFiles:
           - $values/argocd-{{ $.Values.argocdInstanceType }}/config.yaml
           - $values/clusters/{{ $.Values.clusterName }}/config.yaml
@@ -55,6 +59,7 @@ spec:
         syncOptions:
           - PruneLast={{ $val.pruneLast | default false }} ## should be removed ? 
           - CreateNamespace=true
+          - PreserveResourcesOnDeletion=true
 
 ---
 {{- end }}
