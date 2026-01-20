@@ -5,6 +5,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: {{ $val.syncWave | quote}}
     argocd.argoproj.io/managed-by-url: {{ $.Values.argocdURL }}  
+    argocd.argoproj.io/sync-options: Delete=false
   name: {{ $.Values.clusterName }}-{{ $key }}
   namespace: {{ $.Values.argocdNamespace }}
 spec:
@@ -42,9 +43,9 @@ spec:
           - name: "groupName"
             value: {{ $key }}
           - name: "enableAutoSync"
-            value: {{ $val.enableAutoSync }}
+            value: "{{ $val.enableAutoSync }}"
           - name: "autoSyncPrune"
-            value: {{ $val.autoSyncPrune }}
+            value: "{{ $val.autoSyncPrune }}"
           valueFiles:
           - $values/argocd-{{ $.Values.argocdInstanceType }}/config.yaml
           - $values/clusters/{{ $.Values.clusterName }}/config.yaml
