@@ -9,13 +9,13 @@ metadata:
 spec:
   project: default
   source:
-  {{- if ne $.Values.groupName "namespaces" }}
+  {{- if eq $.Values.groupName "apps" }}
     repoURL: https://github.com/helm/examples.git
     targetRevision: main
     path: charts/hello-world
     helm:
       releaseName: {{ $.Values.clusterName }}-{{ $.Values.groupName }}
-  {{- else if eq $.Values.groupName "namespaces" }}
+  {{- else if ne $.Values.groupName "apss" }}
     repoURL: https://github.com/akolpakova/demo-argocd.git
     targetRevision: test-team
     path: namespaces
