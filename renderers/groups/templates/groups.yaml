@@ -20,9 +20,9 @@ spec:
     targetRevision: test-team
     path: namespaces
     # {{- if eq $.Values.groupName "namespaces" }}      
-    extraSourceFields: |
-        directory:
-          include: storm.yaml
+    # extraSourceFields: |
+    #     directory:
+    #       include: storm.yaml
     # {{- else if eq $.Values.groupName "resources" }}
     # extraSourceFields: |
     #     directory:
