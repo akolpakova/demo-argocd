@@ -59,7 +59,7 @@ spec:
           prune: {{ $val.autoSyncPrune }}
         syncOptions:
           - CreateNamespace=true
-          - PreserveResourcesOnDeletion=true
+          # - PreserveResourcesOnDeletion=true
 
 ---
 {{- end }}
