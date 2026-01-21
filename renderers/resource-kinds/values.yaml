@@ -9,10 +9,10 @@ resourceKinds:
     autoSyncPrune: true
   #   config: "app-config.yaml"
 
-  resources:
-    syncWave: 0
-    enableAutoSync: true
-    autoSyncPrune: false
+  # resources:
+  #   syncWave: 0
+  #   enableAutoSync: true
+  #   autoSyncPrune: false
     # config: "resources-config.yaml"
 
   namespaces:

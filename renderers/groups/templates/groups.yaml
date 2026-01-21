@@ -18,16 +18,16 @@ spec:
   {{- else if ne $.Values.groupName "apps" }}
     repoURL: https://github.com/akolpakova/demo-argocd.git
     targetRevision: test-team
-    path: namespaces
-    {{- if eq $.Values.groupName "namespaces" }}      
+    # path: namespaces
+    # {{- if eq $.Values.groupName "namespaces" }}      
     extraSourceFields: |
         directory:
           include: storm.yaml
-    {{- else if eq $.Values.groupName "resources" }}
-    extraSourceFields: |
-        directory:
-          include: phoenix.yaml
-    {{- end }}
+    # {{- else if eq $.Values.groupName "resources" }}
+    # extraSourceFields: |
+    #     directory:
+    #       include: phoenix.yaml
+    # {{- end }}
   {{- end }}
   destination:
     server: https://kubernetes.default.svc
