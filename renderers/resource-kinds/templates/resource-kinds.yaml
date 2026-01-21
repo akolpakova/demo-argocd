@@ -5,7 +5,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: {{ $val.syncWave | quote}}
     argocd.argoproj.io/managed-by-url: {{ $.Values.argocdURL }}  
-    argocd.argoproj.io/sync-options: Delete=false
+    argocd.argoproj.io/sync-options: Delete=confirm
   name: {{ $.Values.clusterName }}-{{ $key }}
   namespace: {{ $.Values.argocdNamespace }}
 spec:
@@ -58,7 +58,6 @@ spec:
           enabled: {{ $val.enableAutoSync }}
           prune: {{ $val.autoSyncPrune }}
         syncOptions:
-          - PruneLast={{ $val.pruneLast | default false }} ## should be removed ? 
           - CreateNamespace=true
           - PreserveResourcesOnDeletion=true
 
