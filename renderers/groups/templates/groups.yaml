@@ -18,7 +18,7 @@ spec:
   {{- else if ne $.Values.groupName "apps" }}
     repoURL: https://github.com/akolpakova/demo-argocd.git
     targetRevision: test-team
-    # path: namespaces
+    path: namespaces
     # {{- if eq $.Values.groupName "namespaces" }}      
     extraSourceFields: |
         directory:
