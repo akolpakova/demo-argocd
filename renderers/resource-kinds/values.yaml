@@ -18,4 +18,4 @@ resourceKinds:
   namespaces:
     syncWave: 0
     enableAutoSync: true
-    autoSyncPrune: false
+    autoSyncPrune: true
