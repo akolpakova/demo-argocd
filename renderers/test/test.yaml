@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: parent-safe-app
+  namespace: argocd
+  # 🛑 IMPORTANT: Finalizers MUST be empty or absent.
+  # If 'resources-finalizer.argocd.argoproj.io' is here, 
+  # cascading deletion will ignore the 'Preserve' flag.
+  finalizers: [] 
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/akolpakova/demo-argocd.git
+    targetRevision: main
+    # Path to the directory containing your Namespace manifest
+    path: test-namespace
+  destination:
+    server: https://kubernetes.default.svc
+    # The namespace where ArgoCD creates the Application object
+    namespace: argocd 
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      # ✅ This is the core setting to orphan resources
+      - PreserveResourcesOnDeletion=true 
+      - CreateNamespace=true
