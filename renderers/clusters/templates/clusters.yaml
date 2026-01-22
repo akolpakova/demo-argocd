@@ -4,7 +4,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "0"
     argocd.argoproj.io/managed-by-url: {{ $.Values.argocdURL }}  
-    argocd.argoproj.io/sync-options: Delete=false
+    # argocd.argoproj.io/sync-options: Delete=false
   creationTimestamp: null
   ## DO NOT CHANGE THE NAME FOR THE PRODUCTION ARGOCD
   name: clusters{{- if eq $.Values.argocdInstanceType "development" -}}-development{{- end }}
