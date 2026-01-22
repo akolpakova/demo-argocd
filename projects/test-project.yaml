@@ -4,7 +4,7 @@ metadata:
   name: test-project
   namespace: argocd
   annotations:
-    # argocd.argoproj.io/sync-options: Delete=false
+    argocd.argoproj.io/sync-options: PruneLast=true
 spec:
   # 1. Source Repositories (Allow all Git repositories)
   sourceRepos:
