@@ -28,9 +28,9 @@ spec:
   - repoURL: https://github.com/akolpakova/demo-argocd.git
     path: renderers/projects
     targetRevision: test-team
-    helm:
-      valueFiles:
-      - $values/argocd-production/config.yaml
+    # helm:
+    #   valueFiles:
+    #   - $values/argocd-production/config.yaml
   - repoURL: https://github.com/akolpakova/demo-argocd.git
     path: renderers/clusters
     targetRevision: test-team
