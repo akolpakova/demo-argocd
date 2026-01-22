@@ -11,7 +11,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/akolpakova/demo-argocd.git
-    targetRevision: main
+    targetRevision: test-team
     # Path to the directory containing your Namespace manifest
     path: test-namespace
   destination:
