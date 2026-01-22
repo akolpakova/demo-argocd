@@ -3,10 +3,6 @@ kind: Application
 metadata:
   name: parent-safe-app
   namespace: argocd
-  # 🛑 IMPORTANT: Finalizers MUST be empty or absent.
-  # If 'resources-finalizer.argocd.argoproj.io' is here, 
-  # cascading deletion will ignore the 'Preserve' flag.
-  finalizers: [] 
 spec:
   project: default
   source:
