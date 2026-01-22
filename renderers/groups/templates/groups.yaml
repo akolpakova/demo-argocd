@@ -6,6 +6,8 @@ metadata:
     # argocd.argoproj.io/sync-options: Delete=confirm
   name: final-{{ $.Values.clusterName }}-{{ $.Values.groupName }}
   namespace: {{ $.Values.argocdNamespace }}
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
