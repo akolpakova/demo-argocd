@@ -3,6 +3,8 @@ kind: Application
 metadata:
   name: parent-safe-app
   namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
@@ -16,9 +18,9 @@ spec:
     namespace: argocd 
   syncPolicy:
     automated:
-      prune: false
+      prune: true
       selfHeal: true
     syncOptions:
       # ✅ This is the core setting to orphan resources
-      - PreserveResourcesOnDeletion=true 
+      # - PreserveResourcesOnDeletion=true 
       - CreateNamespace=true
