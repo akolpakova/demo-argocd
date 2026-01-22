@@ -20,5 +20,5 @@ spec:
       selfHeal: true
     syncOptions:
       # ✅ This is the core setting to orphan resources
-      - PreserveResourcesOnDeletion=true 
+      # - PreserveResourcesOnDeletion=true 
       - CreateNamespace=true
