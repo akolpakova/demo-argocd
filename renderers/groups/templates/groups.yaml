@@ -3,7 +3,7 @@ kind: Application
 metadata:
   annotations:
     argocd.argoproj.io/managed-by-url: {{ $.Values.argocdURL }}  
-    # argocd.argoproj.io/sync-options: Delete=false
+    argocd.argoproj.io/sync-options: Delete=false
   name: final-{{ $.Values.clusterName }}-{{ $.Values.groupName }}
   namespace: {{ $.Values.argocdNamespace }}
   # finalizers:
@@ -21,8 +21,8 @@ spec:
     repoURL: https://github.com/akolpakova/demo-argocd.git
     targetRevision: test-team
     path: namespaces
-    directory:
-      include: phoenix.yaml
+    # directory:
+    #   include: phoenix.yaml
     # {{- if eq $.Values.groupName "namespaces" }}      
     # extraSourceFields: |
     #     directory:
