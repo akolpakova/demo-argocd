@@ -21,8 +21,8 @@ spec:
     repoURL: https://github.com/akolpakova/demo-argocd.git
     targetRevision: test-team
     path: namespaces
-    # directory:
-    #   include: phoenix.yaml
+    directory:
+      include: phoenix.yaml
     # {{- if eq $.Values.groupName "namespaces" }}      
     # extraSourceFields: |
     #     directory:
