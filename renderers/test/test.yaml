@@ -12,15 +12,15 @@ spec:
     targetRevision: test-team
     # Path to the directory containing your Namespace manifest
     path: test-namespace
-    directory:
-      include: test.yaml
+    # directory:
+    #   include: test.yaml
   destination:
     server: https://kubernetes.default.svc
     # The namespace where ArgoCD creates the Application object
     namespace: argocd 
   syncPolicy:
     automated:
-      prune: true
+      prune: false
       selfHeal: true
     syncOptions:
       # ✅ This is the core setting to orphan resources
