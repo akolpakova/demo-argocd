@@ -3,11 +3,11 @@ kind: Application
 metadata:
   annotations:
     argocd.argoproj.io/managed-by-url: {{ $.Values.argocdURL }}  
-    # argocd.argoproj.io/sync-options: Delete=confirm
+    # argocd.argoproj.io/sync-options: Delete=false
   name: final-{{ $.Values.clusterName }}-{{ $.Values.groupName }}
   namespace: {{ $.Values.argocdNamespace }}
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
+  # finalizers:
+  #   - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
