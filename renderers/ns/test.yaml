@@ -3,7 +3,7 @@ kind: Application
 metadata:
   annotations:
     argocd.argoproj.io/sync-options: Delete=false
-  name: parent-safe-app
+  name: parent-safe-app-01
   namespace: argocd
   # finalizers:
   #   - resources-finalizer.argocd.argoproj.io
