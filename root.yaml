@@ -29,6 +29,9 @@ spec:
     path: renderers/test
     targetRevision: test-team
   - repoURL: https://github.com/akolpakova/demo-argocd.git
+    path: renderers/ns
+    targetRevision: test-team
+  - repoURL: https://github.com/akolpakova/demo-argocd.git
     path: renderers/projects
     targetRevision: test-team
   - repoURL: https://github.com/akolpakova/demo-argocd.git

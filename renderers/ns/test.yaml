@@ -15,10 +15,7 @@ spec:
     # Path to the directory containing your Namespace manifest
     path: namespaces
     # directory:
-    #   include: phoenix.yaml
-    # path: test-namespace
-    # directory:
-    #   include: test.yaml
+    #   include: storm.yaml
   destination:
     server: https://kubernetes.default.svc
     # The namespace where ArgoCD creates the Application object
