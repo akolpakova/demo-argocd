@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  {{- if ne $.Values.isDecomissioned true }}    
+  {{- if eq $.Values.isDecomissioned true }}    
   finalizers:
       - resources-finalizer.argocd.argoproj.io
   {{- end }}
