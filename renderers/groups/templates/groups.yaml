@@ -5,6 +5,9 @@ metadata:
     argocd.argoproj.io/managed-by-url: {{ $.Values.argocdURL }} 
     {{- if ne $.Values.isDecomissioned true }}
     argocd.argoproj.io/sync-options: Delete=confirm
+    {{- else }}
+    finalizers:
+      - resources-finalizer.argocd.argoproj.io
     {{- end }}
   name: final-{{ $.Values.clusterName }}-{{ $.Values.groupName }}
   namespace: {{ $.Values.argocdNamespace }}
