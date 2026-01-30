@@ -19,11 +19,8 @@ spec:
       requeueAfterSeconds: 20
       revision: {{ $.Values.targetRevision}}
   {{- end }}
-  {{- if ne $.Values.decomission true }}
   syncPolicy:
     preserveResourcesOnDeletion: true
-  {{- end }}
-  {{- $decomissionValue := printf "%s%s%s" "{{ `$.Values.clusters.` }}" "{{ `{{ path.basename }}` }}" "{{ `.decomission` }}" }}
   template:
     metadata:
       labels:
@@ -46,10 +43,8 @@ spec:
           path: renderers/resource-kinds
           targetRevision: {{ $.Values.targetRevision}}
           helm:
-            parameters:
-            - name: "decomissionValue"
-              value: {{ $decomissionValue | quote }}
             valueFiles:
+            - $values/clusters/clusters-list.yaml
             - $values/argocd-{{ $.Values.argocdInstanceType }}/config.yaml
             - $values/{{"{{"}} path {{"}}"}}/config.yaml
         - repoURL: https://github.com/akolpakova/demo-argocd.git
@@ -57,11 +52,7 @@ spec:
           ref: values
       syncPolicy:
         automated:
-        {{- if eq $decomissionValue "true" }}
-          prune: true
-        {{- else }}
           prune: false
-        {{- end}}
           selfHeal: true
         syncOptions:
           - PreserveResourcesOnDeletion=true

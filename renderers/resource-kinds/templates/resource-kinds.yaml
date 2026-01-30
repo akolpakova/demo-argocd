@@ -1,3 +1,4 @@
+{{- $isDecomissioned := index $.Values.clusters $.Values.clusterName "decomission" -}}
 {{- range $key,$val := .Values.resourceKinds }}
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
@@ -5,13 +6,13 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: {{ $val.syncWave | quote}}
     argocd.argoproj.io/managed-by-url: {{ $.Values.argocdURL }}  
-    {{- if ne $.Values.decomissionValue true }}
+    {{- if ne $isDecomissioned true }}
     argocd.argoproj.io/sync-options: Delete=confirm
     {{- end }}
   name: {{ $.Values.clusterName }}-{{ $key }}
   namespace: {{ $.Values.argocdNamespace }}
 spec:
-  {{- if ne $.Values.decomissionValue true }}
+  {{- if ne $isDecomissioned true }}
   syncPolicy:
     preserveResourcesOnDeletion: true
   {{- end }}
@@ -44,8 +45,8 @@ spec:
         targetRevision: {{ $.Values.targetRevision}}
         helm:
           parameters:
-          - name: "decomissionValue"
-            value: "{{ $.Values.decomissionValue }}"
+          - name: "isDecomissioned"
+            value: "{{ $isDecomissioned }}"
           - name: "groupName"
             value: {{ $key }}
           - name: "enableAutoSync"
@@ -62,14 +63,13 @@ spec:
       syncPolicy:
         automated:
           enabled: {{ $val.enableAutoSync }}
-          {{- if eq $.Values.decomissionValue true }}
-            prune: true
-          {{- else }}
-            prune: {{ $val.autoSyncPrune }}
-          {{- end}}
+        {{- if eq $isDecomissioned true }}
+          prune: true
+        {{- else }}
+          prune: {{ $val.autoSyncPrune }}
+        {{- end}}
         syncOptions:
           - CreateNamespace=true
-          # - PreserveResourcesOnDeletion=true
 
 ---
 {{- end }}
