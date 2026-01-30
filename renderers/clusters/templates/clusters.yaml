@@ -18,8 +18,9 @@ spec:
       repoURL: https://github.com/akolpakova/demo-argocd.git
       requeueAfterSeconds: 20
       revision: {{ $.Values.targetRevision}}
-  - list:
-      isDecomissioned: {{ index $.Values.clusters $clusterName "decomission" }}
+  # - list:
+  #     elements:
+  #     - isDecomissioned: {{ index $.Values.clusters $clusterName "decomission" | default false }}
   {{- end }}
   syncPolicy:
     preserveResourcesOnDeletion: true
@@ -54,8 +55,6 @@ spec:
           ref: values
       syncPolicy:
         automated:
-          prune: {{ `{{.isDecomissioned}}` }}
+          prune: false
           selfHeal: true
-        syncOptions:
-          - PreserveResourcesOnDeletion=true
 status: {}
