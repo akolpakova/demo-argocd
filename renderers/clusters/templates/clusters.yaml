@@ -47,7 +47,7 @@ spec:
           helm:
             parameters:
             - name: "decomission"
-              value: "{{ $.Values.decomission }}"
+              value: '{{ $.Values.clusters.{{"{{"}} path.basename {{"}}"}}.decomission }}'
             valueFiles:
             - $values/argocd-{{ $.Values.argocdInstanceType }}/config.yaml
             - $values/{{"{{"}} path {{"}}"}}/config.yaml
