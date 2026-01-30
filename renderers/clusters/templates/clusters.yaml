@@ -23,6 +23,7 @@ spec:
   syncPolicy:
     preserveResourcesOnDeletion: true
   {{- end }}
+  {{- $decomissionValue := printf "%s%s%s" "{{ `$.Values.clusters.` }}" "{{ `{{ path.basename }}` }}" "{{ `.decomission` }}" }}
   template:
     metadata:
       labels:
@@ -46,8 +47,8 @@ spec:
           targetRevision: {{ $.Values.targetRevision}}
           helm:
             parameters:
-            - name: "decomission"
-              value: '{{ $.Values.clusters.{{"{{"}} path.basename {{"}}"}}.decomission }}'
+            - name: "decomissionValue"
+              value: {{ $decomissionValue | quote }}
             valueFiles:
             - $values/argocd-{{ $.Values.argocdInstanceType }}/config.yaml
             - $values/{{"{{"}} path {{"}}"}}/config.yaml
@@ -56,7 +57,7 @@ spec:
           ref: values
       syncPolicy:
         automated:
-        {{- if eq $.Values.decomission true }}
+        {{- if eq $decomissionValue "true" }}
           prune: true
         {{- else }}
           prune: false

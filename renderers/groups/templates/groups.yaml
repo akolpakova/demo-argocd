@@ -3,7 +3,7 @@ kind: Application
 metadata:
   annotations:
     argocd.argoproj.io/managed-by-url: {{ $.Values.argocdURL }} 
-    {{- if ne $.Values.decomission true }}
+    {{- if ne $.Values.decomissionValue true }}
     argocd.argoproj.io/sync-options: Delete=confirm
     {{- end }}
   name: final-{{ $.Values.clusterName }}-{{ $.Values.groupName }}
@@ -42,7 +42,7 @@ spec:
     automated:
       selfHeal: true
       enabled: {{ $.Values.enableAutoSync }}
-      {{- if eq $.Values.decomission true }}
+      {{- if eq $.Values.decomissionValue true }}
         prune: true
       {{- else }}
         prune: {{ $.Values.autoSyncPrune }}

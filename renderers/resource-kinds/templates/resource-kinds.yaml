@@ -5,13 +5,13 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: {{ $val.syncWave | quote}}
     argocd.argoproj.io/managed-by-url: {{ $.Values.argocdURL }}  
-    {{- if ne $.Values.decomission true }}
+    {{- if ne $.Values.decomissionValue true }}
     argocd.argoproj.io/sync-options: Delete=confirm
     {{- end }}
   name: {{ $.Values.clusterName }}-{{ $key }}
   namespace: {{ $.Values.argocdNamespace }}
 spec:
-  {{- if ne $.Values.decomission true }}
+  {{- if ne $.Values.decomissionValue true }}
   syncPolicy:
     preserveResourcesOnDeletion: true
   {{- end }}
@@ -44,8 +44,8 @@ spec:
         targetRevision: {{ $.Values.targetRevision}}
         helm:
           parameters:
-          - name: "decomission"
-            value: "{{ $.Values.decomission }}"
+          - name: "decomissionValue"
+            value: "{{ $.Values.decomissionValue }}"
           - name: "groupName"
             value: {{ $key }}
           - name: "enableAutoSync"
@@ -62,7 +62,7 @@ spec:
       syncPolicy:
         automated:
           enabled: {{ $val.enableAutoSync }}
-          {{- if eq $.Values.decomission true }}
+          {{- if eq $.Values.decomissionValue true }}
             prune: true
           {{- else }}
             prune: {{ $val.autoSyncPrune }}
