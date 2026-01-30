@@ -19,10 +19,10 @@ spec:
     path: charts/hello-world
     helm:
       releaseName: {{ $.Values.clusterName }}-{{ $.Values.groupName }}
-  {{- else if ne $.Values.groupName "apps" }}
-    repoURL: https://github.com/akolpakova/demo-argocd.git
-    targetRevision: test-team
-    path: namespaces
+  # {{- else if ne $.Values.groupName "apps" }}
+  #   repoURL: https://github.com/akolpakova/demo-argocd.git
+  #   targetRevision: test-team
+  #   path: namespaces
     # directory:
     #   include: phoenix.yaml
     # {{- if eq $.Values.groupName "namespaces" }}      
