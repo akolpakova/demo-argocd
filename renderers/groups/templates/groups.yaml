@@ -23,11 +23,11 @@ spec:
     automated:
       selfHeal: true
       enabled: {{ $.Values.enableAutoSync }}
-      {{- if eq $.Values.isDecomissioned true }}
-        prune: true
-      {{- else }}
-        prune: {{ $.Values.autoSyncPrune }}
-      {{- end}}
+    {{- if eq $.Values.isDecomissioned true }}
+      prune: true
+    {{- else }}
+      prune: {{ $.Values.autoSyncPrune }}
+    {{- end}}
     syncOptions:
       - CreateNamespace=true
 ---
