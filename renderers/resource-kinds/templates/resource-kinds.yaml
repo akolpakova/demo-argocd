@@ -3,14 +3,15 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
+  {{- if ne $isDecomissioned true }}    
+  finalizers:
+      - resources-finalizer.argocd.argoproj.io
+  {{- end }}
   annotations:
     argocd.argoproj.io/sync-wave: {{ $val.syncWave | quote}}
     argocd.argoproj.io/managed-by-url: {{ $.Values.argocdURL }}  
     {{- if ne $isDecomissioned true }}
     argocd.argoproj.io/sync-options: Delete=confirm
-    {{- else }}
-    finalizers:
-      - resources-finalizer.argocd.argoproj.io
     {{- end }}
   name: {{ $.Values.clusterName }}-{{ $key }}
   namespace: {{ $.Values.argocdNamespace }}
