@@ -52,7 +52,7 @@ spec:
           ref: values
       syncPolicy:
         automated:
-          prune: '{{ `{{index $.Values.clusters path "decomission"}}` }}'
+          prune: {{ `{{index $.Values.clusters path.basename "decomission"}}` }}
           selfHeal: true
         syncOptions:
           - PreserveResourcesOnDeletion=true
