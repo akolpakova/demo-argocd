@@ -8,33 +8,14 @@ metadata:
     {{- end }}
   name: final-{{ $.Values.clusterName }}-{{ $.Values.groupName }}
   namespace: {{ $.Values.argocdNamespace }}
-  # finalizers:
-  #   - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
-  {{- if eq $.Values.groupName "apps" }}
     repoURL: https://github.com/helm/examples.git
     targetRevision: main
     path: charts/hello-world
     helm:
       releaseName: {{ $.Values.clusterName }}-{{ $.Values.groupName }}
-  # {{- else if ne $.Values.groupName "apps" }}
-  #   repoURL: https://github.com/akolpakova/demo-argocd.git
-  #   targetRevision: test-team
-  #   path: namespaces
-    # directory:
-    #   include: phoenix.yaml
-    # {{- if eq $.Values.groupName "namespaces" }}      
-    # extraSourceFields: |
-    #     directory:
-    #       include: storm.yaml
-    # {{- else if eq $.Values.groupName "resources" }}
-    # extraSourceFields: |
-    #     directory:
-    #       include: phoenix.yaml
-    # {{- end }}
-  {{- end }}
   destination:
     server: https://kubernetes.default.svc
     namespace: {{ $.Values.clusterName }}
@@ -49,5 +30,4 @@ spec:
       {{- end}}
     syncOptions:
       - CreateNamespace=true
-      # - PreserveResourcesOnDeletion=true
 ---
