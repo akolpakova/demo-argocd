@@ -2,8 +2,10 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   annotations:
-    argocd.argoproj.io/managed-by-url: {{ $.Values.argocdURL }}  
-    argocd.argoproj.io/sync-options: Delete=false
+    argocd.argoproj.io/managed-by-url: {{ $.Values.argocdURL }} 
+    {{- if ne $.Values.decomission true }}
+    argocd.argoproj.io/sync-options: Delete=confirm
+    {{- end }}
   name: final-{{ $.Values.clusterName }}-{{ $.Values.groupName }}
   namespace: {{ $.Values.argocdNamespace }}
   # finalizers:
@@ -40,7 +42,11 @@ spec:
     automated:
       selfHeal: true
       enabled: {{ $.Values.enableAutoSync }}
-      prune: {{ $.Values.autoSyncPrune }}
+      {{- if eq $.Values.decomission true }}
+        prune: true
+      {{- else }}
+        prune: {{ $.Values.autoSyncPrune }}
+      {{- end}}
     syncOptions:
       - CreateNamespace=true
       # - PreserveResourcesOnDeletion=true

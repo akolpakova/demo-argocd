@@ -5,8 +5,10 @@ clusters:
   #   argocdInstanceType: development
   child-1-cucumber:
     argocdInstanceType: production
-  # child-2-potato:
-  #   argocdInstanceType: development
+    decomission: false
+  child-2-potato:
+    argocdInstanceType: production
+    decomission: false
   # child-3-avocado:
   #   argocdInstanceType: development
   # child-4-devex:

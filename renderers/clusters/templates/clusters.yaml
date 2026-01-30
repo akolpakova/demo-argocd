@@ -19,8 +19,10 @@ spec:
       requeueAfterSeconds: 20
       revision: {{ $.Values.targetRevision}}
   {{- end }}
+  {{- if ne $.Values.decomission true }}
   syncPolicy:
     preserveResourcesOnDeletion: true
+  {{- end }}
   template:
     metadata:
       labels:
@@ -43,6 +45,9 @@ spec:
           path: renderers/resource-kinds
           targetRevision: {{ $.Values.targetRevision}}
           helm:
+            parameters:
+            - name: "decomission"
+              value: "{{ $.Values.decomission }}"
             valueFiles:
             - $values/argocd-{{ $.Values.argocdInstanceType }}/config.yaml
             - $values/{{"{{"}} path {{"}}"}}/config.yaml
@@ -51,7 +56,11 @@ spec:
           ref: values
       syncPolicy:
         automated:
+        {{- if eq $.Values.decomission true }}
+          prune: true
+        {{- else }}
           prune: false
+        {{- end}}
           selfHeal: true
         syncOptions:
           - PreserveResourcesOnDeletion=true
