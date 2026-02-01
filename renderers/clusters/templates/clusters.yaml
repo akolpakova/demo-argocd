@@ -18,10 +18,10 @@ spec:
       repoURL: https://github.com/akolpakova/demo-argocd.git
       requeueAfterSeconds: 20
       revision: {{ $.Values.targetRevision}}
-      syncPolicy:
-        automated:
-          prune:  {{ index $.Values.clusters $clusterName "decomission" | default false }}
-          selfHeal: true
+      # syncPolicy:
+      #   automated:
+      #     prune:  {{ index $.Values.clusters $clusterName "decomission" | default false }}
+      #     selfHeal: true
   {{- end }}
   syncPolicy:
     preserveResourcesOnDeletion: true
