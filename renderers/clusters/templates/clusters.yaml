@@ -18,8 +18,10 @@ spec:
       repoURL: https://github.com/akolpakova/demo-argocd.git
       requeueAfterSeconds: 20
       revision: {{ $.Values.targetRevision}}
-  - list:
-      isDecomissioned: {{ index $.Values.clusters $clusterName "decomission" | default false }}
+      syncPolicy:
+        automated:
+          prune:  {{ index $.Values.clusters $clusterName "decomission" | default false }}
+          selfHeal: true
   {{- end }}
   syncPolicy:
     preserveResourcesOnDeletion: true
@@ -46,6 +48,8 @@ spec:
           targetRevision: {{ $.Values.targetRevision}}
           helm:
             parameters:
+            - name: "decomission"
+              value: '{{`{{ isDecomissioned }}`}}'
             - name: "clusterName"
               value: '{{`{{ if eq isDecomissioned "true" | ternary true false  }}`}}'
             valueFiles:
@@ -53,10 +57,10 @@ spec:
             - $values/argocd-{{ $.Values.argocdInstanceType }}/config.yaml
             - $values/{{"{{"}} path {{"}}"}}/config.yaml
         - repoURL: https://github.com/akolpakova/demo-argocd.git
-          targetRevision: {{ $.Values.targetRevision}}
+          targetRevision: {{ $.Values.targetRevision }}
           ref: values
-      syncPolicy:
-        automated:
-          prune: '{{`{{ if eq isDecomissioned "true" | ternary true false }}`}}'
-          selfHeal: true
+      # syncPolicy:
+      #   automated:
+      #     prune: {{ `{{ if eq isDecomissioned "true" }}true{{ else }}false{{ end }}` }}
+      #     selfHeal: true
 status: {}
