@@ -3,20 +3,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  {{- if ne $isDecomissioned true }}    
+  {{- if eq $isDecomissioned true }}    
   finalizers:
       - resources-finalizer.argocd.argoproj.io
   {{- end }}
   annotations:
     argocd.argoproj.io/sync-wave: {{ $val.syncWave | quote}}
     argocd.argoproj.io/managed-by-url: {{ $.Values.argocdURL }}  
-    {{- if ne $isDecomissioned true }}
-    argocd.argoproj.io/sync-options: Delete=confirm
+    {{- if eq $isDecomissioned false }}
+    argocd.argoproj.io/sync-options: Delete=false
     {{- end }}
   name: {{ $.Values.clusterName }}-{{ $key }}
   namespace: {{ $.Values.argocdNamespace }}
 spec:
-  {{- if ne $isDecomissioned true }}
+  {{- if eq $isDecomissioned false }}
   syncPolicy:
     preserveResourcesOnDeletion: true
   {{- end }}
