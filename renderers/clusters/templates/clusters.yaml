@@ -35,6 +35,10 @@ spec:
       ## DO NOT CHANGE THE NAME
       name: '{{"{{"}} path.basename {{"}}"}}-cluster'
       namespace: {{ $.Values.argocdNamespace }} 
+      {{- if $isAnyDecomissioned }}
+      finalizers:
+      - resources-finalizer.argocd.argoproj.io
+      {{- end }}
     spec:
       destination:
         namespace: {{ $.Values.argocdNamespace }} 
