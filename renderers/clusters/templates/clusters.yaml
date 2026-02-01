@@ -45,6 +45,9 @@ spec:
           path: renderers/resource-kinds
           targetRevision: {{ $.Values.targetRevision}}
           helm:
+            parameters:
+            - name: "clusterName"
+              value: '{{`{{ if eq isDecomissioned "true" | ternary true false  }}`}}'
             valueFiles:
             - $values/clusters/clusters-list.yaml
             - $values/argocd-{{ $.Values.argocdInstanceType }}/config.yaml
@@ -54,6 +57,6 @@ spec:
           ref: values
       syncPolicy:
         automated:
-          prune: '{{`{{ isDecomissioned }}`}}'
+          prune: '{{`{{ if eq isDecomissioned "true" | ternary true false }}`}}'
           selfHeal: true
 status: {}
