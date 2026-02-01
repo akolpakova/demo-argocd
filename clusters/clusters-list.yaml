@@ -1,7 +1,7 @@
 clusters:
   child-1-cucumber:
     argocdInstanceType: production
-    decomission: false
+    decomission: true
   child-2-potato:
     argocdInstanceType: production
     decomission: false
