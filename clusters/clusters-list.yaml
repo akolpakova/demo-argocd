@@ -1,11 +1,7 @@
 clusters:
-  # test:
-  #   argocdInstanceType: production
-  # test-deploy:
-  #   argocdInstanceType: development
   child-1-cucumber:
     argocdInstanceType: production
-    decomission: true
+    decomission: false
   child-2-potato:
     argocdInstanceType: production
     decomission: false

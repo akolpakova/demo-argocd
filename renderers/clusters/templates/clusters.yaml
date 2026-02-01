@@ -1,3 +1,8 @@
+{{- $isAnyDecomissioned := false -}}
+{{- range $v := .Values.clusters -}}
+  {{- if $v.decomission }}{{ $isAnyDecomissioned = true }}{{ end -}}
+{{- end -}}
+
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
@@ -58,6 +63,6 @@ spec:
       syncPolicy:
         automated:
           enabled: false
-          prune: true
+          prune: {{ $isAnyDecomissioned }}
           selfHeal: true
 status: {}
