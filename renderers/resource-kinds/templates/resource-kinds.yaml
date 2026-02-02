@@ -66,7 +66,7 @@ spec:
       syncPolicy:
         automated:
           enabled: {{ $val.enableAutoSync }}
-        {{- if eq $isDecomissioned true }}
+        {{- if eq $.Values.isDecomissioned true }}
           prune: true
         {{- else }}
           prune: {{ $val.autoSyncPrune }}
