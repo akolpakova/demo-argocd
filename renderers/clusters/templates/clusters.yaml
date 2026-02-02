@@ -30,6 +30,10 @@ spec:
         app.kubernetes.io/managed-by: argocd-autopilot
       name: '{{"{{"}} .path.basename {{"}}"}}'
       namespace: {{ $.Values.argocdNamespace }} 
+      {{`{{- if eq .values.prune "true" }}`}}
+      finalizers:
+        - resources-finalizer.argocd.argoproj.io
+      {{`{{- end }}`}}
     spec:
       destination:
         namespace: {{ $.Values.argocdNamespace }} 
@@ -56,11 +60,6 @@ spec:
           targetRevision: {{ $.Values.targetRevision }}
           ref: values
   templatePatch: |
-    metadata:
-      {{`{{- if eq .values.prune "true" }}`}}
-      finalizers:
-        - resources-finalizer.argocd.argoproj.io
-      {{`{{- end }}`}}
     spec:
       syncPolicy:
         automated:
