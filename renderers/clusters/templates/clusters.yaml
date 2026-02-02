@@ -33,7 +33,6 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/managed-by: argocd-autopilot
-      ## DO NOT CHANGE THE NAME
       name: '{{"{{"}} path.basename {{"}}"}}'
       namespace: {{ $.Values.argocdNamespace }} 
     spec:
@@ -67,8 +66,8 @@ spec:
       #     prune: '{{`{{ isDecomissioned }}`}}'
       #     selfHeal: true
   templatePatch: |
-  spec:
-    syncPolicy:
-      automated:
-        prune: {{ .values.prune }}
+    spec:
+      syncPolicy:
+        automated:
+          prune: {{`{{ .prune }}`}}
 status: {}
