@@ -47,7 +47,7 @@ spec:
           helm:
             parameters:
             - name: isDecommissioned
-              value: '{{"{{"}} .values.prune {{"}}"}}'
+              value: "{{`{{ .values.prune }}`}}"
             valueFiles:
             # - $values/clusters/clusters-list.yaml
             - $values/argocd-{{ $.Values.argocdInstanceType }}/config.yaml
