@@ -19,7 +19,7 @@ spec:
         targetRevision: test-team
         path: namespaces
       destination:
-        server: '{{ .server }}'
+        server: '{{ .url }}'
         namespace: guestbook
   templatePatch: |
     spec:
