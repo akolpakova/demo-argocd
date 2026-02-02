@@ -27,11 +27,7 @@ spec:
     automated:
       selfHeal: true
       enabled: {{ $.Values.enableAutoSync }}
-    {{- if eq $.Values.isDecomissioned true }}
-      prune: true
-    {{- else }}
-      prune: false
-    {{- end}}
+      prune: {{ $.Values.isDecomissioned }}
     syncOptions:
       - CreateNamespace=true
 ---
