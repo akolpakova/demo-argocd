@@ -1,22 +1,22 @@
-{{- $isDecomissioned := index $.Values.clusters $.Values.clusterName "decomission" -}}
+# {{- $isDecomissioned := index $.Values.clusters $.Values.clusterName "decomission" -}}
 {{- range $key,$val := .Values.resourceKinds }}
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  {{- if eq $isDecomissioned true }}    
+  {{- if eq $.Values.isDecomissioned true }}    
   finalizers:
       - resources-finalizer.argocd.argoproj.io
   {{- end }}
   annotations:
     argocd.argoproj.io/sync-wave: {{ $val.syncWave | quote}}
     argocd.argoproj.io/managed-by-url: {{ $.Values.argocdURL }}  
-    {{- if eq $isDecomissioned false }}
+    {{- if eq $.Values.isDecomissioned false }}
     argocd.argoproj.io/sync-options: Delete=false
     {{- end }}
   name: {{ $.Values.clusterName }}-{{ $key }}
   namespace: {{ $.Values.argocdNamespace }}
 spec:
-  {{- if eq $isDecomissioned false }}
+  {{- if eq $.Values.isDecomissioned false }}
   syncPolicy:
     preserveResourcesOnDeletion: true
   {{- end }}
@@ -50,7 +50,7 @@ spec:
         helm:
           parameters:
           - name: "isDecomissioned"
-            value: "{{ $isDecomissioned }}"
+            value: "{{ $.Values.isDecomissioned }}"
           - name: "groupName"
             value: {{ $key }}
           - name: "enableAutoSync"
