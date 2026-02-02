@@ -49,7 +49,7 @@ spec:
             valueFiles:
             - $values/clusters/clusters-list.yaml
             - $values/argocd-{{ $.Values.argocdInstanceType }}/config.yaml
-            - $values/{{`{{ .path }}`}}/config.yaml
+            - $values/{{`{{ index . "path" }}`}}/config.yaml
         - repoURL: https://github.com/akolpakova/demo-argocd.git
           targetRevision: {{ $.Values.targetRevision }}
           ref: values
