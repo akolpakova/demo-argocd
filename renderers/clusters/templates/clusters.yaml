@@ -69,11 +69,11 @@ spec:
   templatePatch: |
   spec:
     metadata:
-      {{- if .isDecomissioned }}
+      {{- if .values.isDecomissioned }}
       finalizers:
       - resources-finalizer.argocd.argoproj.io
       {{- end }}
     syncPolicy:
       automated:
-        prune: {{ .isDecomissioned }}
+        prune: {{ .values.isDecomissioned }}
 status: {}
