@@ -29,7 +29,7 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/managed-by: argocd-autopilot
-      name: '{{"{{"}} path.basename {{"}}"}}'
+      name: '{{"{{"}} .path.basename {{"}}"}}'
       namespace: {{ $.Values.argocdNamespace }} 
     spec:
       destination:
