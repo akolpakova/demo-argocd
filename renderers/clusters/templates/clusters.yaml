@@ -20,7 +20,7 @@ spec:
       requeueAfterSeconds: 20
       revision: {{ $.Values.targetRevision}}
       values:
-        cluster: {{ $clusterName }}
+        clusterName: {{ $clusterName }}
         prune: "{{ $clusterInfo.decomission }}"
   {{- end }}
   syncPolicy:
