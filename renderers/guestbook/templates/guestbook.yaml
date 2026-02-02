@@ -12,7 +12,7 @@ spec:
   template:
     metadata:
       # Add a space after the dot: {{ .cluster }} instead of {{.cluster}}
-      name: '{{ len . }}-{{ .cluster }}-guestbook'
+      name: '{{ index . "cluster" }}-guestbook'
     spec:
       project: "default"
       source:
