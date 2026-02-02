@@ -1,8 +1,3 @@
-{{- $isAnyDecomissioned := false -}}
-{{- range $v := .Values.clusters -}}
-  {{- if $v.decomission }}{{ $isAnyDecomissioned = true }}{{ end -}}
-{{- end -}}
-
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
@@ -25,7 +20,7 @@ spec:
       requeueAfterSeconds: 20
       revision: {{ $.Values.targetRevision}}
       values:
-        prune: {{ $clusterInfo.decomission }}
+        prune: "{{ $clusterInfo.decomission }}"
   {{- end }}
   syncPolicy:
     preserveResourcesOnDeletion: true
@@ -50,9 +45,6 @@ spec:
           path: renderers/resource-kinds
           targetRevision: {{ $.Values.targetRevision}}
           helm:
-            # parameters:
-            # - name: "decomission"
-            #   value: '{{`{{ isDecomissioned }}`}}'
             valueFiles:
             - $values/clusters/clusters-list.yaml
             - $values/argocd-{{ $.Values.argocdInstanceType }}/config.yaml
@@ -60,14 +52,9 @@ spec:
         - repoURL: https://github.com/akolpakova/demo-argocd.git
           targetRevision: {{ $.Values.targetRevision }}
           ref: values
-      # syncPolicy:
-      #   automated:
-      #     enabled: false
-      #     prune: '{{`{{ isDecomissioned }}`}}'
-      #     selfHeal: true
   templatePatch: |
     spec:
       syncPolicy:
         automated:
-          prune: {{`{{ .prune }}`}}
+          prune: {{`{{ eq .values.prune "true" }}`}}
 status: {}
