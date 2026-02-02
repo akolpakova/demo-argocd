@@ -57,10 +57,10 @@ spec:
           ref: values
   templatePatch: |
     metadata:
-      {{- if eq .values.prune "true" }}    
+      {{`{{- if eq .values.prune "true" }}`}}
       finalizers:
-          - resources-finalizer.argocd.argoproj.io
-      {{- end }}
+        - resources-finalizer.argocd.argoproj.io
+      {{`{{- end }}`}}
     spec:
       syncPolicy:
         automated:
