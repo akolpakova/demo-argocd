@@ -11,8 +11,7 @@ spec:
           url: "https://kubernetes.default.svc"
   template:
     metadata:
-      # Add a space after the dot: {{ .cluster }} instead of {{.cluster}}
-      name: '{{ $.cluster }}-guestbook'
+      name: '{{ printf "%#v" . }}-guestbook'
     spec:
       project: "default"
       source:
