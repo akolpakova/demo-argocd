@@ -56,6 +56,11 @@ spec:
           targetRevision: {{ $.Values.targetRevision }}
           ref: values
   templatePatch: |
+    metadata:
+      {{- if eq .values.prune "true" }}    
+      finalizers:
+          - resources-finalizer.argocd.argoproj.io
+      {{- end }}
     spec:
       syncPolicy:
         automated:
