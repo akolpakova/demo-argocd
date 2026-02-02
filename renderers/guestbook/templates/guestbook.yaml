@@ -7,35 +7,22 @@ spec:
   generators:
   - list:
       elements:
-        - cluster: engineering-dev
-          url: https://kubernetes.default.svc
-          autoSync: true
+        - url: https://kubernetes.default.svc
           prune: true
-          valueFiles:
-            - values.large.yaml
-            - values.debug.yaml
   template:
     metadata:
       name: '{{ .nameNormalized }}-deployment'
     spec:
       project: "default"
       source:
-        repoURL: https://github.com/infra-team/cluster-deployments.git
-        targetRevision: HEAD
-        path: guestbook/{{ .nameNormalized }}
+        repoURL: https://github.com/akolpakova/demo-argocd.git
+        targetRevision: test-team
+        path: namespaces
       destination:
         server: '{{ .server }}'
         namespace: guestbook
   templatePatch: |
     spec:
-      source:
-        helm:
-          valueFiles:
-          {{- range $valueFile := .valueFiles }}
-            - {{ $valueFile }}
-          {{- end }}
-    {{- if .autoSync }}
       syncPolicy:
         automated:
           prune: {{ .prune }}
-    {{- end }}
