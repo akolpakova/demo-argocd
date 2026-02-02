@@ -24,10 +24,9 @@ spec:
       repoURL: https://github.com/akolpakova/demo-argocd.git
       requeueAfterSeconds: 20
       revision: {{ $.Values.targetRevision}}
-  - list:
-      elements:
-          - clusterName: {{ $clusterName }}
-            prune: {{ index $.Values.clusters $clusterName "decomission" }}
+      values:
+        - clusterName: {{ $clusterName }}
+          prune: {{ $clusterInfo.decomission }}
   {{- end }}
   syncPolicy:
     preserveResourcesOnDeletion: true
@@ -36,7 +35,7 @@ spec:
       labels:
         app.kubernetes.io/managed-by: argocd-autopilot
       ## DO NOT CHANGE THE NAME
-      name: '{{ .clusterName }}-cluster'
+      name: '{{ .values.clusterName }}-cluster'
       namespace: {{ $.Values.argocdNamespace }} 
     spec:
       destination:
@@ -59,7 +58,7 @@ spec:
             valueFiles:
             - $values/clusters/clusters-list.yaml
             - $values/argocd-{{ $.Values.argocdInstanceType }}/config.yaml
-            - $values/{{ .clusterName }}/config.yaml
+            - $values/{{ .values.clusterName }}/config.yaml
         - repoURL: https://github.com/akolpakova/demo-argocd.git
           targetRevision: {{ $.Values.targetRevision }}
           ref: values
@@ -71,11 +70,11 @@ spec:
   templatePatch: |
   spec:
     metadata:
-      {{- if .prune }}
+      {{- if .values.prune }}
       finalizers:
       - resources-finalizer.argocd.argoproj.io
       {{- end }}
     syncPolicy:
       automated:
-        prune: {{ .prune }}
+        prune: {{ .values.prune }}
 status: {}
