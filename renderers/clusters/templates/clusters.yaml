@@ -57,6 +57,10 @@ spec:
           ref: values
   templatePatch: |
     metadata:
+      labels:
+        app.kubernetes.io/managed-by: argocd-autopilot
+      name: '{{"{{"}} .path.basename {{"}}"}}'
+      namespace: {{ $.Values.argocdNamespace }} 
       {{`{{- if eq .values.prune "true" }}`}}
       finalizers:
         - resources-finalizer.argocd.argoproj.io
