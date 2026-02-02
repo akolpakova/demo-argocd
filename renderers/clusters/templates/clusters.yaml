@@ -25,6 +25,11 @@ spec:
   syncPolicy:
     preserveResourcesOnDeletion: true
   template:
+    metadata:
+      labels:
+        app.kubernetes.io/managed-by: argocd-autopilot
+      name: '{{"{{"}} .path.basename {{"}}"}}'
+      namespace: {{ $.Values.argocdNamespace }} 
     spec:
       destination:
         namespace: {{ $.Values.argocdNamespace }} 
