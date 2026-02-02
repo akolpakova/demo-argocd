@@ -15,6 +15,7 @@ metadata:
   name: clusters{{- if eq $.Values.argocdInstanceType "development" -}}-development{{- end }}
   namespace: {{ $.Values.argocdNamespace }} 
 spec:
+  goTemplate: true
   generators:
   {{- range $clusterName,$clusterInfo := $.Values.clusters }}
   - git:
@@ -23,8 +24,8 @@ spec:
       repoURL: https://github.com/akolpakova/demo-argocd.git
       requeueAfterSeconds: 20
       revision: {{ $.Values.targetRevision}}
-      # values:
-      #   isDecomissioned: '{{ index $.Values.clusters $clusterName "decomission" }}'
+      values:
+        isDecomissioned: {{ index $.Values.clusters $clusterName "decomission" }}
   {{- end }}
   syncPolicy:
     preserveResourcesOnDeletion: true
@@ -35,10 +36,6 @@ spec:
       ## DO NOT CHANGE THE NAME
       name: '{{"{{"}} path.basename {{"}}"}}-cluster'
       namespace: {{ $.Values.argocdNamespace }} 
-      {{- if $isAnyDecomissioned }}
-      finalizers:
-      - resources-finalizer.argocd.argoproj.io
-      {{- end }}
     spec:
       destination:
         namespace: {{ $.Values.argocdNamespace }} 
@@ -64,9 +61,19 @@ spec:
         - repoURL: https://github.com/akolpakova/demo-argocd.git
           targetRevision: {{ $.Values.targetRevision }}
           ref: values
-      syncPolicy:
-        automated:
-          enabled: false
-          prune: {{ $isAnyDecomissioned }}
-          selfHeal: true
+      # syncPolicy:
+      #   automated:
+      #     enabled: false
+      #     prune: '{{`{{ isDecomissioned }}`}}'
+      #     selfHeal: true
+  templatePatch: |
+  spec:
+    metadata:
+      {{- if .isDecomissioned }}
+      finalizers:
+      - resources-finalizer.argocd.argoproj.io
+      {{- end }}
+    syncPolicy:
+      automated:
+        prune: {{ .isDecomissioned }}
 status: {}
