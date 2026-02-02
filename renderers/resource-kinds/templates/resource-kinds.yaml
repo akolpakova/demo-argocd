@@ -49,7 +49,7 @@ spec:
         helm:
           parameters:
           - name: "isDecomissioned"
-            value: {{ $.Values.isDecomissioned }}
+            value: "{{ $.Values.isDecomissioned }}"
           - name: "groupName"
             value: {{ $key }}
           - name: "enableAutoSync"
