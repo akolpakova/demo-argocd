@@ -1,4 +1,3 @@
-# {{- $isDecomissioned := index $.Values.clusters $.Values.clusterName "decomission" -}}
 {{- range $key,$val := .Values.resourceKinds }}
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
