@@ -17,7 +17,7 @@ spec:
       source:
         repoURL: https://github.com/argoproj/argo-cd.git
         targetRevision: HEAD
-        path: 'applicationset/examples/template-override/{{ .cluster }}-override'
+        path: 'applicationset/examples/template-override/{{`{{ .cluster }}`}}-override'
       destination:
-        server: '{{ .url }}'
+        server: '{{`{{ .url }}`}}'
         namespace: guestbook
