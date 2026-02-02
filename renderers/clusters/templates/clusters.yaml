@@ -68,12 +68,7 @@ spec:
       #     selfHeal: true
   templatePatch: |
   spec:
-    metadata:
-      {{- if .prune }}
-      finalizers:
-      - resources-finalizer.argocd.argoproj.io
-      {{- end }}
     syncPolicy:
       automated:
-        prune: {{ .prune }}
+        prune: {{ .values.prune }}
 status: {}
