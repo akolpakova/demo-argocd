@@ -3,31 +3,22 @@ kind: ApplicationSet
 metadata:
   name: guestbook
 spec:
-  goTemplate: true
+  goTemplate: true # ✅ Correct
   generators:
   - list:
       elements:
         - cluster: engineering-dev
           url: https://kubernetes.default.svc
-      template:
-        metadata: {}
-        spec:
-          project: "default"
-          source:
-            targetRevision: HEAD
-            repoURL: https://github.com/argoproj/argo-cd.git
-            path: 'applicationset/examples/template-override/{{ .cluster }}-override'
-          destination: {}
-
   template:
     metadata:
-      name: '{{ .cluster }}-guestbook'
+      name: '{{ .cluster }}-guestbook' # ✅ Correct Go Template syntax
     spec:
       project: "default"
       source:
         repoURL: https://github.com/argoproj/argo-cd.git
         targetRevision: HEAD
-        path: applicationset/examples/template-override/default
+        # Accessing variables in Go Template style
+        path: 'applicationset/examples/template-override/{{ .cluster }}-override'
       destination:
-        server: '{{ .url}}'
+        server: '{{ .url }}' # ✅ Correct Go Template syntax
         namespace: guestbook
