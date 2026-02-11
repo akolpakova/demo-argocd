@@ -66,4 +66,5 @@ spec:
       syncPolicy:
         automated:
           prune: {{`{{ eq .values.prune "true" }}`}}
+          selfHeal: true
 status: {}
