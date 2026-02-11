@@ -1,21 +1,23 @@
+{{- $isDecommissioned := dig $.Values.clusterName "isDecommissioned" true $.Values.clusters -}}
+
 {{- range $key,$val := .Values.resourceKinds }}
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  {{- if eq $.Values.isDecomissioned "true" }}    
+  {{- if eq $isDecommissioned true }}   
   finalizers:
       - resources-finalizer.argocd.argoproj.io
   {{- end }}
   annotations:
     argocd.argoproj.io/sync-wave: {{ $val.syncWave | quote}}
     argocd.argoproj.io/managed-by-url: {{ $.Values.argocdURL }}  
-    {{- if eq $.Values.isDecomissioned false }}
+    {{- if eq $isDecommissioned false }}
     argocd.argoproj.io/sync-options: Delete=false
     {{- end }}
   name: {{ $.Values.clusterName }}-{{ $key }}
   namespace: {{ $.Values.argocdNamespace }}
 spec:
-  {{- if eq $.Values.isDecomissioned false }}
+  {{- if eq $isDecommissioned false }}
   syncPolicy:
     preserveResourcesOnDeletion: true
   {{- end }}
@@ -48,8 +50,8 @@ spec:
         targetRevision: {{ $.Values.targetRevision}}
         helm:
           parameters:
-          - name: "isDecomissioned"
-            value: {{ $.Values.isDecomissioned | quote }}
+          - name: "isDecommissioned"
+            value: "{{ $isDecommissioned }}"
           - name: "groupName"
             value: {{ $key }}
           - name: "enableAutoSync"
@@ -66,7 +68,7 @@ spec:
       syncPolicy:
         automated:
           enabled: {{ $val.enableAutoSync }}
-        {{- if eq $.Values.isDecomissioned true }}
+        {{- if eq $isDecommissioned true }}
           prune: true
         {{- else }}
           prune: {{ $val.autoSyncPrune }}

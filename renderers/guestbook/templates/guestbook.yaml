@@ -22,7 +22,6 @@ spec:
       destination:
         server: '{{`{{ .url }}`}}'
         namespace: guestbook
-  # ✅ templatePatch added below
   templatePatch: |
     spec:
       syncPolicy:

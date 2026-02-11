@@ -1,13 +1,13 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  {{- if eq $.Values.isDecomissioned true }}    
+  {{- if eq $.Values.isDecommissioned true }}    
   finalizers:
       - resources-finalizer.argocd.argoproj.io
   {{- end }}
   annotations:
     argocd.argoproj.io/managed-by-url: {{ $.Values.argocdURL }} 
-    {{- if ne $.Values.isDecomissioned true }}
+    {{- if ne $.Values.isDecommissioned true }}
     argocd.argoproj.io/sync-options: Delete=confirm
     {{- end }}
   name: final-{{ $.Values.clusterName }}-{{ $.Values.groupName }}
@@ -27,7 +27,7 @@ spec:
     automated:
       selfHeal: true
       enabled: {{ $.Values.enableAutoSync }}
-      prune: {{ $.Values.isDecomissioned }}
+      prune: {{ $.Values.isDecommissioned }}
     syncOptions:
       - CreateNamespace=true
 ---
