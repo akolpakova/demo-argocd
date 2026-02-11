@@ -1,8 +1,4 @@
 clusters:
-  child-1-cucumber:
-    clusterName: child-1-cucumber
-    argocdInstanceType: production
-    isDecommissioned: true
   child-2-potato:
     clusterName: child-2-potato
     argocdInstanceType: production
