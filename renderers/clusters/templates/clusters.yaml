@@ -24,7 +24,7 @@ spec:
   {{- end }}
   syncPolicy:
     preserveResourcesOnDeletion: true
-    applicationsSync: create-delete
+    applicationsSync: sync
   template:
     metadata:
       labels:
