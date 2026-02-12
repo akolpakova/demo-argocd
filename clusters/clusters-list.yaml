@@ -6,7 +6,7 @@ clusters:
   child-2-potato:
     clusterName: child-2-potato
     argocdInstanceType: production
-    isDecommissioned: false
+    isDecommissioned: true
   # child-3-avocado:
   #   argocdInstanceType: development
   # child-4-devex:
