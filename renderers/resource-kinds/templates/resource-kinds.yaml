@@ -53,10 +53,10 @@ spec:
           parameters:
           - name: "debug-revision"
             value: '{{"{{"}} .revision {{"}}"}}'
-          - name: "debug-path"
-            value: '{{"{{"}} .path.path {{"}}"}}'
-          - name: "available-keys"
-            value: "{{ range $k, $v := . }}{{ $k }} {{ end }}"
+          - name: "debug-revision-1"
+            value: '{{ .revision }}'
+          - name: "debug-revision-2"
+            value: '{{ $.revision }}'
           - name: "isDecommissioned"
             value: "{{ $isDecommissioned }}"
           - name: "groupName"
