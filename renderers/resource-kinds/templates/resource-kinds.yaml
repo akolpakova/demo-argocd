@@ -51,14 +51,6 @@ spec:
           targetRevision: {{ $.Values.targetRevision}}
           helm:
             parameters:
-            - name: "debug-revision"
-              value: '{{"{{"}} .revision {{"}}"}}'
-            - name: "debug-revision-1"
-              value: '{{ .revision }}'
-            - name: "debug-revision-2"
-              value: '{{ $.revision }}'
-            - name: "isDecommissioned"
-              value: "{{ $isDecommissioned }}"
             - name: "groupName"
               value: {{ $key }}
             - name: "enableAutoSync"
