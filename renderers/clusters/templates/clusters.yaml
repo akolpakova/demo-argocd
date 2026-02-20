@@ -47,9 +47,9 @@ spec:
           targetRevision: {{ $.Values.targetRevision}}
           helm:
             valueFiles:
-            - clusters/clusters-list.yaml
-            - argocd-{{ $.Values.argocdInstanceType }}/config.yaml
-            - clusters/{{"{{"}} .path.basename {{"}}"}}/config.yaml
+            - ../../clusters/clusters-list.yaml
+            - ../../argocd-{{ $.Values.argocdInstanceType }}/config.yaml
+            - ../../clusters/{{"{{"}} .path.basename {{"}}"}}/config.yaml
   templatePatch: |
     metadata:
       labels:

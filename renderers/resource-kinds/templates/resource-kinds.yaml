@@ -58,8 +58,8 @@ spec:
             - name: "autoSyncPrune"
               value: "{{ $val.autoSyncPrune }}"
             valueFiles:
-            - argocd-{{ $.Values.argocdInstanceType }}/config.yaml
-            - clusters/{{ $.Values.clusterName }}/config.yaml
+            - ../../argocd-{{ $.Values.argocdInstanceType }}/config.yaml
+            - ../../clusters/{{ $.Values.clusterName }}/config.yaml
       syncPolicy:
         automated:
           enabled: {{ $val.enableAutoSync }}
