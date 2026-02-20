@@ -52,7 +52,11 @@ spec:
         helm:
           parameters:
           - name: "debug-revision"
-            value: "{{ $.revision }}"
+            value: '{{"{{"}} .revision{{"}}"}}'
+          - name: "debug-path"
+            value: '{{"{{"}} .path.path{{"}}"}}'
+          - name: "debug-all-vars"
+            value: "{{ . | toJson }}"
           - name: "isDecommissioned"
             value: "{{ $isDecommissioned }}"
           - name: "groupName"
