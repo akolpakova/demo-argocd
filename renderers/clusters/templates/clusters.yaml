@@ -49,8 +49,7 @@ spec:
             valueFiles:
             - /clusters/clusters-list.yaml
             - /argocd-{{ $.Values.argocdInstanceType }}/config.yaml
-            - '/clusters/{{.path.basename}}/config.yaml'
-            # - /clusters/{{"{{"}} .path.basename {{"}}"}}/config.yaml
+            - /clusters/{{"{{"}} .path.basename {{"}}"}}/config.yaml
   templatePatch: |
     metadata:
       labels:
