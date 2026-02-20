@@ -17,6 +17,7 @@ metadata:
   name: {{ $.Values.clusterName }}-{{ $key }}
   namespace: {{ $.Values.argocdNamespace }}
 spec:
+  goTemplate: true
   {{- if eq $isDecommissioned false }}
   syncPolicy:
     preserveResourcesOnDeletion: true
@@ -47,7 +48,7 @@ spec:
       sources:
       - repoURL: {{ $.Values.repoUrl}}
         path: renderers/groups
-        targetRevision: {{ $.Values.targetRevision}}
+        targetRevision: '{{"{{"}} .revision {{"}}"}}'
         helm:
           parameters:
           - name: "isDecommissioned"
