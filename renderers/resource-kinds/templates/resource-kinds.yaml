@@ -46,32 +46,28 @@ spec:
         kind: Application
       project: default
       sources:
-      - repoURL: {{ $.Values.repoUrl}}
-        path: renderers/groups
-        targetRevision: {{ $.Values.targetRevision}}
-        helm:
-          parameters:
-          - name: "debug-revision"
-            value: '{{"{{"}} .revision {{"}}"}}'
-          - name: "debug-revision-1"
-            value: '{{ .revision }}'
-          - name: "debug-revision-2"
-            value: '{{ $.revision }}'
-          - name: "isDecommissioned"
-            value: "{{ $isDecommissioned }}"
-          - name: "groupName"
-            value: {{ $key }}
-          - name: "enableAutoSync"
-            value: "{{ $val.enableAutoSync }}"
-          - name: "autoSyncPrune"
-            value: "{{ $val.autoSyncPrune }}"
-          valueFiles:
-          - $values/argocd-{{ $.Values.argocdInstanceType }}/config.yaml
-          - $values/clusters/{{ $.Values.clusterName }}/config.yaml
-          # - $values/{{ $val.config }}
-      - repoURL: {{ $.Values.repoUrl}}
-        targetRevision: {{ $.Values.targetRevision}}
-        ref: values
+        - repoURL: {{ $.Values.repoUrl}}
+          path: renderers/groups
+          targetRevision: {{ $.Values.targetRevision}}
+          helm:
+            parameters:
+            - name: "debug-revision"
+              value: '{{"{{"}} .revision {{"}}"}}'
+            - name: "debug-revision-1"
+              value: '{{ .revision }}'
+            - name: "debug-revision-2"
+              value: '{{ $.revision }}'
+            - name: "isDecommissioned"
+              value: "{{ $isDecommissioned }}"
+            - name: "groupName"
+              value: {{ $key }}
+            - name: "enableAutoSync"
+              value: "{{ $val.enableAutoSync }}"
+            - name: "autoSyncPrune"
+              value: "{{ $val.autoSyncPrune }}"
+            valueFiles:
+            - argocd-{{ $.Values.argocdInstanceType }}/config.yaml
+            - clusters/{{ $.Values.clusterName }}/config.yaml
       syncPolicy:
         automated:
           enabled: {{ $val.enableAutoSync }}
@@ -82,6 +78,5 @@ spec:
         {{- end}}
         syncOptions:
           - CreateNamespace=true
-
 ---
 {{- end }}
