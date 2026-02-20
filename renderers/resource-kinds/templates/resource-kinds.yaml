@@ -64,7 +64,7 @@ spec:
           - $values/clusters/{{ $.Values.clusterName }}/config.yaml
           # - $values/{{ $val.config }}
       - repoURL: {{ $.Values.repoUrl}}
-        targetRevision: {{ $.Values.targetRevision}}
+        targetRevision: '{{.revision}}'
         ref: values
       syncPolicy:
         automated:
