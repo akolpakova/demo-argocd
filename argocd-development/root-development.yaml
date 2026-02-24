@@ -30,8 +30,11 @@ spec:
     targetRevision: test-team
     helm:
       valueFiles:
-      - /argocd-development/config.yaml
-      - /clusters/clusters-list.yaml
+      - $values/argocd-development/config.yaml
+      - $values/clusters/clusters-list.yaml
+  - repoURL: https://github.com/akolpakova/demo-argocd.git
+    targetRevision: test-team
+    ref: values
   syncPolicy:
     automated:
       prune: true
