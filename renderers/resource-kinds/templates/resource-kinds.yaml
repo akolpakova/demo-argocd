@@ -57,9 +57,9 @@ spec:
           - CreateNamespace=true
   templatePatch: |
     sources:
-      - repoURL: {{ $.Values.repoUrl}}
+      - repoURL: {{ $.Values.repoUrl }}
         path: renderers/groups
-        targetRevision: {{ $.Values.targetRevision}}
+        targetRevision: {{ $.Values.targetRevision }}
         helm:
           parameters:
           - name: "revision"
