@@ -29,7 +29,8 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/managed-by: argocd-autopilot
-      name: '{{"{{"}} .path.basename {{"}}"}}'
+      # name: '{{"{{"}} .path.basename {{"}}"}}'
+      name: '{{"{{"}} path.basename {{"}}"}}'
       namespace: {{ $.Values.argocdNamespace }} 
     spec:
       destination:
@@ -49,7 +50,8 @@ spec:
             valueFiles:
             - /clusters/clusters-list.yaml
             - /argocd-{{ $.Values.argocdInstanceType }}/config.yaml
-            - /clusters/{{"{{"}} .path.basename {{"}}"}}/config.yaml
+            - /clusters/{{"{{"}} path.basename {{"}}"}}/config.yaml
+            # - /clusters/{{"{{"}} .path.basename {{"}}"}}/config.yaml
   # templatePatch: |
   #   metadata:
   #     labels:
