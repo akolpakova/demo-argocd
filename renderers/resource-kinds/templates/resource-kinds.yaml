@@ -45,26 +45,6 @@ spec:
         - /status
         kind: Application
       project: default
-      sources:
-        - repoURL: {{ $.Values.repoUrl}}
-          path: renderers/groups
-          targetRevision: {{ $.Values.targetRevision}}
-          helm:
-            parameters:
-            - name: "revision"
-              value: '{{ $.revision }}'
-            - name: "groupName"
-              value: {{ $key }}
-            - name: "enableAutoSync"
-              value: "{{ $val.enableAutoSync }}"
-            - name: "autoSyncPrune"
-              value: "{{ $val.autoSyncPrune }}"
-            valueFiles:
-            - $values/argocd-{{ $.Values.argocdInstanceType }}/config.yaml
-            - $values/clusters/{{ $.Values.clusterName }}/config.yaml
-        - repoURL: https://github.com/akolpakova/demo-argocd.git
-          targetRevision: test-team
-          ref: values
       syncPolicy:
         automated:
           enabled: {{ $val.enableAutoSync }}
@@ -75,5 +55,26 @@ spec:
         {{- end}}
         syncOptions:
           - CreateNamespace=true
+  templatePatch: |
+    sources:
+      - repoURL: {{ $.Values.repoUrl}}
+        path: renderers/groups
+        targetRevision: {{ $.Values.targetRevision}}
+        helm:
+          parameters:
+          - name: "revision"
+            value: '{{"{{"}} .revision {{"}}"}}'
+          - name: "groupName"
+            value: {{ $key }}
+          - name: "enableAutoSync"
+            value: "{{ $val.enableAutoSync }}"
+          - name: "autoSyncPrune"
+            value: "{{ $val.autoSyncPrune }}"
+          valueFiles:
+          - $values/argocd-{{ $.Values.argocdInstanceType }}/config.yaml
+          - $values/clusters/{{ $.Values.clusterName }}/config.yaml
+      - repoURL: https://github.com/akolpakova/demo-argocd.git
+        targetRevision: test-team
+        ref: values
 ---
 {{- end }}
