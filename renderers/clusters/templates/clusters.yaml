@@ -10,7 +10,7 @@ metadata:
   name: clusters{{- if eq $.Values.argocdInstanceType "development" -}}-development{{- end }}
   namespace: {{ $.Values.argocdNamespace }} 
 spec:
-  goTemplate: true
+  # goTemplate: true
   generators:
   {{- range $clusterName,$clusterInfo := $.Values.clusters }}
   - git:
@@ -50,19 +50,19 @@ spec:
             - /clusters/clusters-list.yaml
             - /argocd-{{ $.Values.argocdInstanceType }}/config.yaml
             - /clusters/{{"{{"}} .path.basename {{"}}"}}/config.yaml
-  templatePatch: |
-    metadata:
-      labels:
-        app.kubernetes.io/managed-by: argocd-autopilot
-      name: '{{"{{"}} .path.basename {{"}}"}}'
-      namespace: {{ $.Values.argocdNamespace }} 
-      {{`{{- if eq .values.prune "true" }}`}}
-      finalizers:
-        - resources-finalizer.argocd.argoproj.io
-      {{`{{- end }}`}}
-    spec:
-      syncPolicy:
-        automated:
-          prune: {{`{{ eq .values.prune "true" }}`}}
-          selfHeal: true
+  # templatePatch: |
+  #   metadata:
+  #     labels:
+  #       app.kubernetes.io/managed-by: argocd-autopilot
+  #     name: '{{"{{"}} .path.basename {{"}}"}}'
+  #     namespace: {{ $.Values.argocdNamespace }} 
+  #     {{`{{- if eq .values.prune "true" }}`}}
+  #     finalizers:
+  #       - resources-finalizer.argocd.argoproj.io
+  #     {{`{{- end }}`}}
+  #   spec:
+  #     syncPolicy:
+  #       automated:
+  #         prune: {{`{{ eq .values.prune "true" }}`}}
+  #         selfHeal: true
 status: {}
