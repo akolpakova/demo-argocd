@@ -46,7 +46,7 @@ spec:
         kind: Application
       project: default
       sources:
-        {{- if eq $.Values.argocdInstanceType "production" }}
+      {{- if eq $.Values.argocdInstanceType "production" }}
         - repoURL: {{ $.Values.repoUrl}}
           path: renderers/groups
           targetRevision: {{ $.Values.targetRevision}}
@@ -66,7 +66,7 @@ spec:
         - repoURL: https://github.com/akolpakova/demo-argocd.git
           targetRevision: test-team
           ref: values
-        {{- else }}
+      {{- else }}
         - repoURL: {{ $.Values.repoUrl}}
           path: renderers/groups
           targetRevision: {{ $.Values.targetRevision}}
