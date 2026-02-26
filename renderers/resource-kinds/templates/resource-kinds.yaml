@@ -72,16 +72,17 @@ spec:
           targetRevision: {{ $.Values.targetRevision}}
           helm:
             parameters:
+            - name: "revision"
+              value: '{{ $.revision }}'
             - name: "groupName"
-              value: '{{"{{"}} path.basename {{"}}"}}'
-            - name: "isDecommissioned"
-              value: "{{ $isDecommissioned }}"
+              value: {{ $key }}
+            - name: "enableAutoSync"
+              value: "{{ $val.enableAutoSync }}"
+            - name: "autoSyncPrune"
+              value: "{{ $val.autoSyncPrune }}"
             valueFiles:
-            - /renderers/groups/values.yaml
-            - /argocd/{{ $.Values.argocdInstanceEnv }}/config.yaml
-            - /{{ $val.config }}
+            - /argocd-{{ $.Values.argocdInstanceType }}/config.yaml
             - /clusters/{{ $.Values.clusterName }}/config.yaml
-            - /{{"{{"}} path {{"}}"}}/enabled-apps.yaml
         {{- end }}
       syncPolicy:
         automated:
