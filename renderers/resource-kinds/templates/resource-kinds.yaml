@@ -46,6 +46,7 @@ spec:
         kind: Application
       project: default
       sources:
+        {{- if eq $.Values.argocdInstanceType "production" }}
         - repoURL: {{ $.Values.repoUrl}}
           path: renderers/groups
           targetRevision: {{ $.Values.targetRevision}}
@@ -65,6 +66,23 @@ spec:
         - repoURL: https://github.com/akolpakova/demo-argocd.git
           targetRevision: test-team
           ref: values
+        {{- else }}
+        - repoURL: {{ $.Values.repoUrl}}
+          path: renderers/groups
+          targetRevision: {{ $.Values.targetRevision}}
+          helm:
+            parameters:
+            - name: "groupName"
+              value: '{{"{{"}} path.basename {{"}}"}}'
+            - name: "isDecommissioned"
+              value: "{{ $isDecommissioned }}"
+            valueFiles:
+            - /renderers/groups/values.yaml
+            - /argocd/{{ $.Values.argocdInstanceEnv }}/config.yaml
+            - /{{ $val.config }}
+            - /clusters/{{ $.Values.clusterName }}/config.yaml
+            - /{{"{{"}} path {{"}}"}}/enabled-apps.yaml
+        {{- end }}
       syncPolicy:
         automated:
           enabled: {{ $val.enableAutoSync }}
